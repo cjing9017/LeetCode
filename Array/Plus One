@@ -1,0 +1,26 @@
+class Solution {
+    public int[] plusOne(int[] digits) {
+        Stack<Integer> num = new Stack<>();
+        int digit = 0;//当前数字
+        int cf = 0;//进位
+        digit = digits[digits.length-1] + 1;
+        cf = digit / 10;
+        digit %= 10;
+        num.push(digit);//入栈
+        for(int i=digits.length-2; i>=0; i--){
+            digit = digits[i] + cf;
+            cf = digit / 10;
+            digit %= 10;
+            num.push(digit);
+        }//根据进位得出当前位的数字
+        if(cf != 0){
+            num.push(cf);
+        }//最大一位存在进位
+        int result[] = new int[num.size()];
+        int len = 0;
+        while(!num.isEmpty()){
+            result[len++] = num.pop();
+        }      
+        return result;
+    }
+}

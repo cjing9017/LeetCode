@@ -1,0 +1,49 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length == 0){
+            return null;
+        }
+        return divide(lists, 0, lists.length-1);
+    }
+
+    //将数组分割为更小的数组
+    private ListNode divide(ListNode[] lists, int left, int right){
+        if(left == right){
+            return lists[left];
+        }
+        int mid = (left + right) / 2;
+        ListNode leftList  = divide(lists, left, mid);
+        ListNode rightList = divide(lists, mid+1, right);
+        return merge(leftList, rightList);
+    }
+
+    //将两个链表合并为一个有序的链表
+    private ListNode merge(ListNode left, ListNode right){
+        if(left  == null) return right;
+        if(right == null) return left;
+        ListNode result = new ListNode(0);
+        ListNode next = result;
+        while(left != null || right != null){
+            int x = left  != null ? left.val  : Integer.MAX_VALUE;
+            int y = right != null ? right.val : Integer.MAX_VALUE;
+            if(x < y){
+                next.next = new ListNode(x);
+                left = left.next;
+            }
+            else{
+                next.next = new ListNode(y);
+                right = right.next;
+            }
+            next = next.next;
+        }
+        return result.next;
+    }
+}

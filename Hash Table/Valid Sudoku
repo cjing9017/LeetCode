@@ -1,0 +1,35 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        for(int i=0; i<9; i++){
+            char[] digits = new char[] {'1','2','3','4','5','6','7','8','9'};
+            for(int j=0; j<9; j++){
+                if(board[i][j] == '.') continue;
+                if(digits[board[i][j] - '1'] != '.') digits[board[i][j] - '1'] = '.';
+                else return false;
+            }
+        }//checking each row
+        for(int i=0; i<9; i++){
+            char[] digits = new char[] {'1','2','3','4','5','6','7','8','9'};
+            for(int j=0; j<9; j++){
+                if(board[j][i] == '.') continue;
+                if(digits[board[j][i] - '1'] != '.') digits[board[j][i] - '1'] = '.';
+                else return false;
+            }
+        }//checking each column
+        for(int k=0; k<9; k++){
+            int rowSt = k/3*3;
+            int rowEd = rowSt + 3;
+            int colSt = k%3*3;
+            int colEd = colSt + 3;
+            char[] digits = new char[] {'1','2','3','4','5','6','7','8','9'};
+            for(int i=rowSt; i<rowEd; i++){
+                for(int j=colSt; j<colEd; j++){
+                    if(board[i][j] == '.') continue;
+                    if(digits[board[i][j] - '1'] != '.') digits[board[i][j] - '1'] = '.';
+                    else return false;
+                }
+            }
+        }//checking each sub-boxes
+        return true;
+    }
+}

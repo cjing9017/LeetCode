@@ -1,0 +1,30 @@
+class Solution {
+    public int romanToInt(String s) {
+        //建立哈希表存储罗马数字与阿拉伯数字的映射关系
+        Map<Character, Integer> table = new HashMap<>();
+        table.put('I', 1);
+        table.put('V', 5);
+        table.put('X', 10);
+        table.put('L', 50);
+        table.put('C', 100);
+        table.put('D', 500);
+        table.put('M', 1000);
+
+        int num = 0;
+        for(int i = s.length() - 1; i >= 0; i--){
+            if(s.charAt(i) == 'I' && i < s.length() - 1 && (s.charAt(i+1) == 'V' || s.charAt(i+1) == 'X')){
+                num -= table.get(s.charAt(i));
+            }//IV、IX
+            else if(s.charAt(i) == 'X' && i < s.length() - 1 && (s.charAt(i+1) == 'L' || s.charAt(i+1) == 'C')){
+                num -= table.get(s.charAt(i));
+            }//XL、XC
+            else if(s.charAt(i) == 'C' && i < s.length() - 1 && (s.charAt(i+1) == 'D' || s.charAt(i+1) == 'M')){
+                num -= table.get(s.charAt(i));
+            }//CD、CM
+            else{
+                num += table.get(s.charAt(i));
+            }
+        }
+        return num;
+    }
+}

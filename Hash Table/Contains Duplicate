@@ -1,0 +1,13 @@
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Map<Integer, Integer> table = new HashMap<>();
+        for(int num : nums) {
+            if (!table.containsKey(num)) {
+                table.put(num, 1);
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+}

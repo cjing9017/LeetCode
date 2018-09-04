@@ -1,0 +1,53 @@
+//解法一（超时）
+class Solution {
+    public int climbStairs(int n) {
+        if(n == 1){
+            return 1;
+        }
+        if(n == 2){
+            return 2;
+        }
+        return climbStairs(n-1) + climbStairs(n-2);
+    }
+}
+
+//解法二
+class Solution {
+    public int climbStairs(int n) {
+        int table[] = new int[n+1];//记录表
+        return climb(n, table);
+    }
+    private int climb(int n, int[] table){
+        if(n == 1){
+            return 1;
+        }
+        if(n == 2){
+            return 2;
+        }
+        if(table[n] > 0){
+            return table[n];
+        }//表中已有的记录
+        table[n] = climb(n-1, table) + climb(n-2, table);
+        return table[n];
+    }
+}
+
+//解法三
+class Solution {
+    public int climbStairs(int n) {
+        if(n == 1){
+            return 1;
+        }
+        if(n == 2){
+            return 2;
+        }
+        int f1 = 1;
+        int f2 = 2;
+        for(int i=3; i<=n; i++){
+            int f3 = f1 + f2;
+            f1 = f2;
+            f2 = f3;
+        }
+        return f2;
+    }
+}

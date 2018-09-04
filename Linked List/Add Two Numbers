@@ -1,0 +1,30 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode addResult = new ListNode(0);//头结点
+        ListNode addResultNext = addResult;//尾结点
+        int sum = 0;//两个数的和
+        int cf = 0;//进位标志
+        while(l1 != null || l2 != null){
+            int x = l1 == null ? 0 : l1.val;
+            int y = l2 == null ? 0 : l2.val;
+            sum = x + y + cf;
+            cf = sum / 10;
+            addResultNext.next = new ListNode(sum % 10);
+            addResultNext = addResultNext.next;
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
+        }
+        if(cf != 0){
+            addResultNext.next = new ListNode(cf);
+        }//最高位相加仍有进位
+        return addResult.next;
+    }
+}

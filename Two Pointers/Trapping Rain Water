@@ -1,0 +1,43 @@
+//解法一
+class Solution {
+    public int trap(int[] height) {
+        if(height.length <= 2){
+            return 0;
+        }//It cant't hold water when the columns less than two
+
+        int holdWater = 0;
+        for(int i=1; i<height.length-1; i++){
+            int maxLeft = 0;
+            int maxRight = 0;
+            for(int j=i; j>=0; j--)            maxLeft  = Math.max(maxLeft,  height[j]);
+            for(int j=i; j<height.length; j++) maxRight = Math.max(maxRight, height[j]);
+            holdWater += Math.min(maxLeft, maxRight) - height[i];
+        }
+
+        return holdWater;
+    }
+}
+
+//解法二
+class Solution {
+    public int trap(int[] height) {
+        if(height.length <= 2){
+            return 0;
+        }//It cant't hold water when the columns less than two
+
+        int[] maxLeft  = new int[height.length];
+        int[] maxRight = new int[height.length];
+
+        maxLeft[0] = height[0];
+        maxRight[height.length-1] = height[height.length-1];
+        for(int i=1; i<height.length; i++)    maxLeft[i]  = Math.max(height[i], maxLeft[i-1]);
+        for(int i=height.length-2; i>=0; i--) maxRight[i] = Math.max(height[i], maxRight[i+1]);
+
+        int holdWater = 0;
+        for(int i=1; i<height.length-1; i++){
+            holdWater += Math.min(maxLeft[i], maxRight[i]) - height[i];
+        }
+
+        return holdWater;
+    }
+}

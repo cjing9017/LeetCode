@@ -1,0 +1,51 @@
+//解法一
+class Solution {
+    public int reverse(int x) {
+        int op = 1;//数字的符号
+        if(x < 0){
+            op = -1;
+            x *= op;
+        }
+        int len = 0;
+        int nums[] = new int[32];//保存各位数字
+        while(x != 0){
+            nums[len++] = x%10;
+            x /= 10;
+        }
+        long result = 0L;//用长整型保存数字，防止溢出
+        int order = len-1;//数字的阶
+        for(int i=0; i<len; i++){
+            result += (nums[i]*Math.pow(10, order--));
+        }
+        if(result > Integer.MAX_VALUE || result < Integer.MIN_VALUE){//判断是否溢出
+            return 0;
+        }
+        return (int)result*op;
+    }
+}
+
+//解法二
+class Solution {
+    public int reverse(int x) {
+        int op = 1;//数字的符号
+        if(x < 0){
+            op = -1;
+            x *= op;
+        }
+        int len = 0;
+        int nums[] = new int[32];//保存各位数字
+        while(x != 0){
+            nums[len++] = x%10;
+            x /= 10;
+        }
+        long result = 0L;//用长整型保存数字，防止溢出
+        int order = len-1;
+        for(int i=0; i<len; i++){
+            result += (nums[i]*Math.pow(10, order--));
+        }
+        if(result > Integer.MAX_VALUE || result < Integer.MIN_VALUE){//判断是否溢出
+            return 0;
+        }
+        return (int)result*op;
+    }
+}

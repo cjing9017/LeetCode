@@ -1,0 +1,27 @@
+//解法一（超时）
+class Solution {
+    public int maxArea(int[] height) {
+        int mostWater = 0;
+        for(int i=0; i<height.length; i++){
+            for(int j=i+1; j<height.length; j++){
+                mostWater = Math.max(mostWater, (j-i) * Math.min(height[i], height[j]));
+            }
+        }
+        return mostWater;
+    }
+}
+
+//解法二
+class Solution {
+    public int maxArea(int[] height) {
+        int mostWater = 0;
+        int st = 0;//左直线下标
+        int ed = height.length - 1;//右直线下标
+        while(st < ed){
+            mostWater = Math.max(mostWater, Math.min(height[st], height[ed]) * (ed - st));
+            if(height[st] < height[ed]) st++;
+            else ed--;
+        }
+        return mostWater;
+    }
+}

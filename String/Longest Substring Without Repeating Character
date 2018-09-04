@@ -1,0 +1,37 @@
+//解法一
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxLen = 0;//最大长度变量
+        for(int i=0; i<s.length(); i++){
+            String str = "" + s.charAt(i);//不重复连续子串
+            for(int j=i+1; j<s.length(); j++){
+                if(str.indexOf(s.charAt(j)) != -1){
+                    break;
+                }
+                str += s.charAt(j);
+            }
+            maxLen = str.length() > maxLen ? str.length() : maxLen;
+        }
+        return maxLen;
+    }
+}
+
+//解法二
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxLen = 0;
+        Set<Character> table = new HashSet<>();
+        int st, ed;//区间端点
+        st = ed = 0;
+        while(ed < s.length()){
+            if(table.contains(s.charAt(ed))){
+                table.remove(s.charAt(st++));
+            }
+            else{
+                table.add(s.charAt(ed++));
+                maxLen = ed-st > maxLen ? ed-st : maxLen;
+            }
+        }
+        return maxLen;
+    }
+}

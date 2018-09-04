@@ -1,0 +1,49 @@
+//解法一
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        double maxAverage = Integer.MIN_VALUE;
+        for(int i=0; i<nums.length; i++){
+            if (i+k > nums.length) {
+                break;
+            }
+            int sum = 0;
+            for(int j=i; j<i+k; j++) {
+                sum += nums[j];
+            }
+            maxAverage = Math.max(maxAverage, (double)sum / k);
+        }
+        return maxAverage;
+    }
+}
+
+//解法二
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int[] sum = new int[nums.length];
+        sum[0] = nums[0];
+        for(int i=1; i<nums.length; i++) {
+            sum[i] = sum[i-1] + nums[i];
+        }
+        double maxAverage = sum[k-1] / (double)k;
+        for(int i=k; i<nums.length; i++) {
+            maxAverage = Math.max(maxAverage, (sum[i] - sum[i-k]) / (double)k);
+        }
+        return maxAverage;
+    }
+}
+
+//解法三
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        for(int i=0; i<k; i++) {
+            sum += nums[i];
+        }
+        double maxAverage = sum / (double)k;
+        for(int i=k; i<nums.length; i++) {
+            sum += nums[i] - nums[i-k];
+            maxAverage = Math.max(maxAverage, sum / (double)k);
+        }
+        return maxAverage;
+    }
+}

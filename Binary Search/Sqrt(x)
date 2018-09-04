@@ -1,0 +1,10 @@
+class Solution {
+    public int mySqrt(int x) {
+        double err = 1e-7;
+        double result = x;
+        while(Math.abs(result - x/result) > err){
+            result = (result + x/result)/2.0;
+        }
+        return (int)result;
+    }
+}

@@ -1,0 +1,22 @@
+class Solution {
+    public int[][] matrixReshape(int[][] nums, int r, int c) {
+        if (nums.length * nums[0].length != r * c) {
+            return nums;
+        } //unreasonable number of rows and columns
+        int[][] result = new int[r][c];
+        int nums_r = 0;
+        int nums_c = 0;
+        for(int i=0; i<r; i++) {
+            for(int j=0; j<c; j++) {
+                result[i][j] = nums[nums_r][nums_c];
+                if (nums_c + 1 == nums[nums_r].length) {
+                    nums_r++;
+                    nums_c = 0;
+                } else {
+                    nums_c++;
+                }
+            }
+        }
+        return result;
+    }
+}

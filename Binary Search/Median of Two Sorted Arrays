@@ -1,0 +1,19 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int nums[] = new int[nums1.length + nums2.length +1];
+        int i = 0, j = 0;//数组1、数组2的下标
+        int len = 0;//两数组合并后的长度
+        while(i < nums1.length || j < nums2.length){
+            int x = i < nums1.length ? nums1[i] : Integer.MAX_VALUE;
+            int y = j < nums2.length ? nums2[j] : Integer.MAX_VALUE;
+            if(x < y) {nums[len++] = x; i++;}
+            else      {nums[len++] = y; j++;}
+        }
+        if(len % 2 == 0){
+            return (nums[len / 2 - 1] + nums[len / 2]) / 2.0;
+        }
+        else{
+            return nums[len / 2];
+        }
+    }
+}

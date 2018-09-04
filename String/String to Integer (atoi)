@@ -1,0 +1,28 @@
+class Solution {
+    public int myAtoi(String str) {
+        if(str == null || str.length() == 0 || str.trim().length() == 0){
+            return 0;
+        }
+        str = str.trim();//去除前导空白和尾部空白
+        if(!(str.charAt(0) == '+' || str.charAt(0) == '-' || (str.charAt(0) >= '0' && str.charAt(0) <= '9'))){
+            return 0;
+        }//首字符为不与数字相关的字符
+        int index = 0;//字符串下标
+        int symbol = 1;//数字的符号,默认为正数
+        double result = 0;//转换后的整数
+        if(str.charAt(0) == '-'){
+            symbol = -1;
+            index++;
+        }
+        else if(str.charAt(0) == '+'){
+            index++;
+        }
+        while(index < str.length() && str.charAt(index) >= '0' && str.charAt(index) <= '9'){
+            result = result * 10 + (str.charAt(index++) - '0');
+        }
+        result *= symbol;
+        if(result > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        if(result < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        return (int)result;
+    }
+}

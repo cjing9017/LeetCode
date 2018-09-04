@@ -1,0 +1,104 @@
+//解法一
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0){
+            return new String();
+        }//空串
+        if(strs.length == 1){
+            return strs[0];
+        }//长度为一的字符串数组
+        int maxLen = Integer.MAX_VALUE;//最短字符串的长度
+        int maxLenIndex = 0;//标志最短字符串在数组中的位置
+        for(int i = 0; i < strs.length; i++){
+            if(strs[i].length() < maxLen){
+                maxLen = strs[i].length();
+                maxLenIndex = i;
+            }
+        }//找出最短字符串，也即最长可能的匹配串
+        String maxPrefix = "";//最长的前缀字符串
+        for(int i = 0; i < maxLen; i++){
+            //用于匹配的字符串
+            String str = strs[maxLenIndex].substring(0, i+1);
+            boolean isPrefix = true;
+            for(int j = 0; j < strs.length; j++){
+                if(!strs[j].substring(0, i+1).equals(str)){
+                    isPrefix = false;
+                    break;
+                }
+            }
+            if(isPrefix && maxPrefix.length() < str.length()){
+                maxPrefix = str;
+            }
+        }
+        return maxPrefix;
+    }
+}
+
+//解法二
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0){
+            return new String();
+        }//空字符串数组
+        String maxPrefix = strs[0];
+        for(int i = 1; i < strs.length; 
+            while(strs[i].indexOf(maxPrefix) != 0){
+                maxPrefix = maxPrefix.substring(0, maxPrefix.length() - 1);//最长前缀长度减1
+                if(maxPrefix.equals("")){
+                    return new String();
+                }
+            }//找到两个串的最长前缀
+        }
+        return maxPrefix;
+    }
+}
+
+//解法三
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0){
+            return "";
+        }//空串
+        for(int i = 0; i < strs[0].length(); i++){
+            char ch = strs[0].charAt(i);
+            for(int j = 1; j < strs.length; j++){
+                //更短的串或不匹配
+                if(i == strs[j].length() || ch != strs[j].charAt(i)){
+                    return strs[0].substring(0, i);
+                }
+            }
+        }
+        return strs[0];
+    }
+}
+
+//解法四
+class Solution {
+    public String longestCommonPrefix(String[] strs) {
+        if(strs.length == 0){
+            return "";
+        }//空串
+        return longestCommonPrefix(strs, 0, strs.length-1);
+    }
+
+    private String longestCommonPrefix(String[] strs, int left, int right){
+        if(left == right){
+            return strs[left];
+        }
+        int mid = (left + right) / 2;
+        String lcpLeft = longestCommonPrefix(strs, left, mid);
+        String lcpRight = longestCommonPrefix(strs, mid+1, right);
+        return commonPrefix(lcpLeft, lcpRight);
+    } 
+
+    //返回两个字符串的最长前缀
+    private String commonPrefix(String left, String right){
+        int maxLen = left.length() > right.length() ? right.length() : left.length();
+        for(int i=0; i<maxLen; i++){
+            if(left.charAt(i) != right.charAt(i)){
+                return left.substring(0, i);
+            }
+        }
+        return left.substring(0, maxLen);
+    }
+}

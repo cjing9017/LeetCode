@@ -1,0 +1,18 @@
+class Solution {
+    public boolean isOneBitCharacter(int[] bits) {
+        return check(bits, 0);
+    }
+
+    private boolean check(int[] bits, int pos) {
+        if (pos == bits.length - 1 ) {
+            return true;
+        }
+        if (pos + 1 < bits.length && bits[pos] == 1) {
+            return check(bits, pos + 2);
+        }
+        if (pos < bits.length && bits[pos] == 0) {
+            return check(bits, pos + 1);
+        }
+        return false;
+    }
+}

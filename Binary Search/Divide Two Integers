@@ -1,0 +1,57 @@
+//解法一（超时）
+class Solution {
+    public int divide(int dividend, int divisor) {
+        int symbol = 0;
+        long _divisor = divisor;
+        long _dividend = dividend;
+        if(dividend < 0){
+            symbol--;
+            _dividend = 0 - (long)dividend;
+        } 
+        else
+            symbol++;
+        if(divisor < 0){
+            symbol--;
+            _divisor = 0 - (long)divisor;
+        }
+        else
+            symbol++;
+        int quotient = _divisor <= _dividend ? 1 : 0;
+        long base = _divisor;
+        while(_divisor + base < _dividend){
+            quotient++;
+            _divisor += base;
+        }
+        return symbol == 0 ? 0 - quotient : quotient;
+    }
+}
+
+//解法二
+class Solution {
+    public int divide(int dividend, int divisor) {
+        if(dividend == Integer.MIN_VALUE && divisor == -1){
+            return Integer.MAX_VALUE;
+        }//the division result overflows
+        if(divisor == 0){
+            return -1;
+        }//divisor is zero
+        int symbol = dividend >> 31 == divisor >> 31 ? 1 : -1;//symbol of result
+        long _dividend = Math.abs((long)dividend);
+        long _divisor  = Math.abs((long)divisor );
+        if(_dividend == 0 || _divisor > _dividend){
+            return 0;
+        }
+        int quotient = 0;//the result
+        while(_divisor <= _dividend){
+            long divisorTemp = _divisor;
+            long quotientTemp = 1;
+            while((divisorTemp << 1) <= _dividend){
+                divisorTemp <<= 1;
+                quotientTemp <<= 1;
+            }
+            quotient += quotientTemp;
+            _dividend -= divisorTemp;
+        }
+        return quotient * symbol;
+    }
+}

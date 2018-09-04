@@ -1,0 +1,27 @@
+class Solution {
+    public int[][] flipAndInvertImage(int[][] A) {
+        if (A == null) {
+            return A;
+        } //matrix is null
+        for(int i=0; i<A.length; i++) {
+            int st = 0;
+            int ed = A[i].length - 1;
+            while(st < ed) {
+            //exchange
+                A[i][st] = A[i][st] ^ A[i][ed];
+                A[i][ed] = A[i][st] ^ A[i][ed];
+                A[i][st] = A[i][st] ^ A[i][ed];
+                //invert
+                A[i][st] = A[i][st] == 1 ? 0 : 1;
+                A[i][ed] = A[i][ed] == 1 ? 0 : 1;
+                st++;
+                ed--;
+            }
+            //the number of row elements is odd
+            if (st == ed) {
+                A[i][st] = A[i][st] == 1 ? 0 : 1;
+            }
+        }
+        return A;
+    }
+}

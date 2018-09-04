@@ -1,0 +1,28 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        if(root1 == null){
+            return root2 == null ? true : false;
+        }
+        String leaves1 = getLeaves(root1, "");
+        String leaves2 = getLeaves(root2, "");
+        return leaves1.equals(leaves2) ? true : false;
+    }
+
+    private String getLeaves(TreeNode root, String leaves){
+        if(root.left == null && root.right == null){
+            return "" + root.val;
+        }//添加叶子节点
+        if(root.left  != null) leaves += getLeaves(root.left,  "");
+        if(root.right != null) leaves += getLeaves(root.right, "");
+        return leaves;
+    }
+}

@@ -1,0 +1,22 @@
+class Solution {
+    public boolean isMonotonic(int[] A) {
+        if (A.length == 1) {
+            return true;
+        }
+        int len = 1;
+        while(len < A.length && A[len] >= A[len - 1]) {
+            len++;
+        }
+        if (len == A.length) {
+            return true;
+        }
+        len = 1;
+        while(len < A.length && A[len] <= A[len - 1]) {
+            len++;
+        }
+        if (len == A.length) {
+            return true;
+        }
+        return false;
+    }
+}

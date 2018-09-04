@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        if(l1 == null) return l2;
+        if(l2 == null) return l1;
+        ListNode list = null;//链表的第一个结点
+        if(l1.val < l2.val) {
+            list = new ListNode(l1.val);
+            l1 = l1.next;
+        }
+        else{
+            list = new ListNode(l2.val);
+            l2 = l2.next;
+        }
+        ListNode listNext = list;//链表的尾结点
+        while(l1 != null && l2 != null){
+            if(l1.val < l2.val){
+                listNext.next = new ListNode(l1.val);
+                l1 = l1.next;
+                listNext = listNext.next;
+            }
+            else{
+                listNext.next = new ListNode(l2.val);
+                l2 = l2.next;
+                listNext = listNext.next;
+            }
+        }
+        while(l1 != null){
+            listNext.next = new ListNode(l1.val);
+            l1 = l1.next; 
+            listNext = listNext.next;
+        }//l1还有剩余结点
+        while(l2 != null){
+            listNext.next = new ListNode(l2.val);
+            l2 = l2.next; 
+            listNext = listNext.next;
+        }//l2还有剩余结点
+        return list;
+    }
+}

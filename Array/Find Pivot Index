@@ -1,0 +1,28 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        if (nums.length == 0) {
+            return -1;
+        }
+
+        int[] sumOfLeft = new int[nums.length];
+        int[] sumOfRight = new int[nums.length];
+        sumOfLeft[0] = nums[0];
+        sumOfRight[nums.length - 1] = nums[nums.length - 1];
+
+        for(int i = 1; i < nums.length; i++) {
+            sumOfLeft[i] = sumOfLeft[i - 1] + nums[i];
+        }
+        for(int i = nums.length-2; i >= 0; i--) {
+            sumOfRight[i] = sumOfRight[i + 1] + nums[i];
+        }
+
+        for(int i = 0; i < nums.length; i++) {
+            int sum1 = i - 1 >= 0 ? sumOfLeft[i - 1] : 0;
+            int sum2 = i + 1 < nums.length ? sumOfRight[i + 1] : 0;
+            if (sum1 == sum2) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}

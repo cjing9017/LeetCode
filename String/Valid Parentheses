@@ -1,0 +1,26 @@
+class Solution {
+    public boolean isValid(String s) {
+        if(s.length() == 0){
+            return true;
+        }//空串
+        Stack<Character> brackets = new Stack<>();
+        for(int i=0; i<s.length(); i++){
+            char ch = s.charAt(i);
+            switch(ch){
+                case ')':
+                    if(brackets.isEmpty() || brackets.pop() != '(') return false;
+                    break;
+                case '}':
+                    if(brackets.isEmpty() || brackets.pop() != '{') return false;
+                    break;
+                case ']':
+                    if(brackets.isEmpty() || brackets.pop() != '[') return false;
+                    break;
+                default:
+                    brackets.push(ch);//左半部分入栈
+                    break;
+            }
+        }
+        return brackets.isEmpty();//栈为空，说明正确匹配
+    }
+}

@@ -1,0 +1,24 @@
+class Solution {
+    public String countAndSay(int n) {
+        String result = "1";
+        for(int i=2; i<=n; i++){
+            int len = result.length();//当前字符串的长度
+            for(int j=0; j<len;){
+                int cnt = 1;//连续重复数字的个数
+                char ch = result.charAt(j++);//当前位置的数字
+                for(int k=j; k<len; k++,j++){
+                    if(result.charAt(k) == ch){
+                        cnt++;
+                    }
+                    else{
+                        break;
+                    }
+                }//统计重复数字个数
+                result += cnt;
+                result += ch;
+            }
+            result = result.substring(0 + len);//去除上一个字符串的部分
+        }
+        return result;
+    }
+}

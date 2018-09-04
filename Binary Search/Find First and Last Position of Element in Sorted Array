@@ -1,0 +1,26 @@
+class Solution {//Java
+    public int[] searchRange(int[] nums, int target) {
+        if(nums.length == 0){
+            return new int[] {-1, -1};
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        int mid = (left + right) / 2;
+        while(left <= right){
+            if(nums[mid] == target) break;
+            else if(nums[mid] > target) right = mid - 1;
+            else left = mid + 1;
+            mid = (left + right) / 2;
+        }//find one position of the target digit
+        if(nums[mid] != target) return new int[] {-1, -1};
+        int st = mid;
+        int ed = mid;
+        while(st >= 0 || ed < nums.length){
+            boolean isMatch = false;
+            if(st > 0 && nums[st-1] == target) {st--; isMatch = true;}
+            if(ed < nums.length - 1 && nums[ed+1] == target) {ed++; isMatch = true;}
+            if(!isMatch) break;
+        }
+        return new int[] {st, ed};
+    }
+}

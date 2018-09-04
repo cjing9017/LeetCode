@@ -1,0 +1,30 @@
+class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int mulAll = 1;
+        int zeroCount = 0;
+        int[] result = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                zeroCount++;
+            } else {
+                mulAll *= nums[i];
+            }
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                if (zeroCount == 0) {
+                    result[i] = mulAll / nums[i];
+                } else {
+                    result[i] = 0;
+                }
+            } else {
+                if (zeroCount == 1) {
+                    result[i] = mulAll;
+                } else {
+                    result[i] = 0;
+                }
+            }
+        }
+        return result;
+    }
+}

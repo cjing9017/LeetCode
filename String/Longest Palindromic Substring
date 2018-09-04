@@ -1,0 +1,53 @@
+//解法一
+class Solution {
+    public String longestPalindrome(String s) {
+        for(int i=s.length(); i>1; i--){
+            for(int j=0; j+i<=s.length(); j++){
+                String str = s.substring(j, j+i);
+                if(isPalindrome(str)){
+                    return str;
+                }
+            }
+        }
+        //不存在长度为二及以上的回文串
+        return s.substring(0, 1);
+    }
+
+    private boolean isPalindrome(String s){
+        int st, ed;
+        st = 0;
+        ed = s.length() - 1;
+        while(st < ed){
+            if(s.charAt(st++) != s.charAt(ed--)){
+                return false;
+            }
+        }
+        return true;
+    }//判断字符串是否为回文
+}
+
+//解法二
+class Solution {
+    public String longestPalindrome(String s) {
+        int st, ed;
+        st = ed = 0;
+        for(int i=0; i<s.length(); i++){
+            int len1 = getLongest(s, i, i);//元素坐标点
+            int len2 = getLongest(s, i, i+1);//元素中间坐标点
+            int len = len1 > len2 ? len1 : len2;
+            if(len > ed - st){
+                st = i - (len - 1) / 2;
+                ed = i + len / 2;
+            }
+        }
+        return s.substring(st, ed+1);
+    }
+
+    private int getLongest(String s, int left, int right){
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            left--;
+            right++;
+        }
+        return right - left - 1;
+    }
+}

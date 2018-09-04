@@ -1,0 +1,13 @@
+class Solution {
+    public int missingNumber(int[] nums) {
+        int sum = 0;
+        int max = nums.length;
+        while(max >= 0) {
+            sum += max--;
+        }
+        for(int num : nums) {
+            sum -= num;
+        }
+        return sum;
+    }
+}

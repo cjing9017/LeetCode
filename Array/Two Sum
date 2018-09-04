@@ -1,0 +1,45 @@
+//解法一
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for(int i=0; i<nums.length; i++){
+            for(int j=i+1; j<nums.length;j++){
+                if(nums[i] + nums[j] == target){
+                    return new int[] {i, j};
+                }
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}
+
+//解法二
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> table = new HashMap<>();
+        for(int i=0; i<nums.length; i++){
+            table.put(nums[i], i);//key and indexs
+        }
+        for(int i=0; i<nums.length; i++){
+            int result = target - nums[i];
+            if(table.containsKey(result) && table.get(result) != i){
+                return new int[] {i, table.get(result)};
+            }
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}
+
+//解法三
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> table = new HashMap<>();
+        for(int i=0; i<nums.length; i++){
+            int result = target - nums[i];
+            if(table.containsKey(result)){//当前键值对未插入，不必判断当前键是否冲突
+                return new int[] {i, table.get(result)};
+            }
+            table.put(nums[i], i);
+        }
+        throw new IllegalArgumentException("No two sum solution");
+    }
+}

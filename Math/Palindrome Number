@@ -1,0 +1,41 @@
+//解法一
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0 || (x % 10 == 0 && x != 0)){
+            return false;
+        }//负数不可能是回文
+        if(x == 0){
+            return true;
+        }//0必定是回文
+        int len = 0;
+        int nums[] = new int[32];//保存x个各位数
+        while(x != 0){
+            nums[len++] = x % 10;
+            x /= 10;
+        }
+        for(int i=0, j=len-1; i<=j; i++, j--){
+            if(nums[i] != nums[j]){
+                return false;
+            }
+        }//从两端开始向中间遍历
+        return true;
+    }
+}
+
+//解法二
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x < 0 || (x % 10 == 0 && x != 0)){
+            return false;
+        }
+        if(x == 0){
+            return true;
+        }
+        int rev = 0;
+        while(x > rev){
+            rev = rev * 10 + x % 10;
+            x /= 10;
+        }//得到后一半反转的数字
+        return x == rev || x == rev / 10;
+    }
+}

@@ -1,0 +1,20 @@
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        LinkedList<String> result = new LinkedList<>();
+        if(digits.length() == 0){
+            return result;
+        }//数字串为空
+        String[] numToLetter = new String[] {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};//数字与字母映射表
+        result.add("");
+        for(int i=0; i<digits.length(); i++){
+            int index = digits.charAt(i) - '0';//字符串中的数字
+            while(result.peek().length() == i){
+                String firstMatch =  result.remove();
+                for(char x : numToLetter[index-2].toCharArray()){
+                    result.add(firstMatch + x);
+                }
+            }
+        }
+        return result;
+    }
+}

@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        LinkedList<List<Integer>> result = new LinkedList<List<Integer>>();
+        LinkedList<Integer> list = new LinkedList<>();
+        Arrays.sort(candidates);
+        combination(result, list, candidates, target, 0, 0);
+        return result;
+    }
+
+    private void combination(LinkedList<List<Integer>> result,LinkedList<Integer>list, 
+                             int[] candidates, int target, int sum, int index) {
+        if (sum == target) {
+            result.addLast(new LinkedList(list));
+            return;
+        } else if (sum > target) {
+            return;
+        }
+        for(int i=index; i<candidates.length; i++) {
+            sum += candidates[i];
+            list.addLast(candidates[i]);
+            combination(result, list, candidates, target, sum, i);
+            sum -= candidates[i];
+            list.removeLast();
+        }
+    }
+}
