@@ -1,0 +1,40 @@
+class Solution {
+    public int numMagicSquaresInside(int[][] grid) {
+        int result = 0;
+        if (grid.length < 3 || grid[0].length < 3) {
+            return result;
+        }
+        for (int i = 0; i + 2 < grid.length; i++) {
+            for (int j = 0; j + 2 < grid[i].length; j++) {
+                result = isOneToNight(grid, i, i + 2, j, j + 2) && 
+                    isMagicSquare(grid, i, i + 2, j, j + 2) ? result + 1 : result;
+            }
+        }
+        return result;
+    }
+    
+    private boolean isMagicSquare(int[][] grid, int stR, int edR, int stC, int edC) {
+        if (grid[stR][stC] + grid[stR][stC + 1] + grid[stR][stC + 2] == 15 &&
+            grid[stR + 1][stC] + grid[stR + 1][stC + 1] + grid[stR + 1][stC + 2] == 15 &&
+            grid[stR + 2][stC] + grid[stR + 2][stC + 1] + grid[stR + 2][stC + 2] == 15 &&
+            grid[stR][stC] + grid[stR + 1][stC] + grid[stR + 2][stC] == 15 &&
+            grid[stR][stC + 1] + grid[stR + 1][stC + 1] + grid[stR + 2][stC + 1] == 15 &&
+            grid[stR][stC + 2] + grid[stR + 1][stC + 2] + grid[stR + 2][stC + 2] == 15 &&
+            grid[stR][stC] + grid[stR + 1][stC + 1] + grid[stR + 2][stC + 2] == 15 &&
+            grid[stR][stC + 2] + grid[stR + 1][stC + 1] + grid[stR + 2][stC] == 15) {
+            return true;
+        }
+        return false;
+    }
+    
+    private boolean isOneToNight(int[][] grid, int stR, int edR, int stC, int edC) {
+        for (int i = stR; i <= edR; i++) {
+            for (int j = stC; j <= edC; j++) {
+                if (grid[i][j] >= 10) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
