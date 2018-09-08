@@ -1,0 +1,17 @@
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        LinkedList<Integer> result = new LinkedList<>();
+        result.addLast(1);
+        for (int i = 1; i <= rowIndex; i++) {
+            result.addLast(1);
+            for (int j = 0; j <= i - 2; j++) {
+                result.addLast(result.get(j) + result.get(j + 1));
+            }
+            result.addLast(1);
+            while (result.size() > i + 1) {
+                result.removeFirst();
+            }
+        }
+        return result;
+    }
+}
