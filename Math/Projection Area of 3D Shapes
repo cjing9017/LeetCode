@@ -1,0 +1,27 @@
+class Solution {
+    public int projectionArea(int[][] grid) {
+        int top = 0;
+        int front = 0;
+        int side = 0;
+        
+        //get top and side
+        for (int i = 0; i < grid.length; i++) {
+            int max = 0;
+            for (int j = 0; j < grid[0].length; j++) {
+                top = grid[i][j] == 0 ? top : top + 1;
+                max = grid[i][j] > max ? grid[i][j] : max;
+            }
+            side += max;
+        }
+        //get front
+        for (int i = 0; i < grid[0].length; i++) {
+            int max = 0;
+            for (int j = 0; j < grid.length; j++) {
+                max = grid[j][i] > max ? grid[j][i] : max;
+            }
+            front += max;
+        }
+        
+        return top + front + side;
+    }
+}

@@ -1,0 +1,30 @@
+class Solution {
+    public String complexNumberMultiply(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        int firstSymbol = 1;
+        int secondSymbol = 1;
+        int firstReal, firstImg, secondReal, secondImg;
+        int firstImgIndex, secondImgIndex;
+        int resultReal, resultImg;
+        
+        firstReal = Integer.valueOf(a.substring(0, a.indexOf('+')));
+        secondReal = Integer.valueOf(b.substring(0, b.indexOf('+')));
+        firstImgIndex = a.indexOf('+') + 1;
+        secondImgIndex = b.indexOf('+') + 1;
+        if (a.charAt(a.indexOf('+') + 1) == '-') {firstSymbol *= -1; firstImgIndex++;}
+        if (b.charAt(b.indexOf('+') + 1) == '-') {secondSymbol *= -1; secondImgIndex++;}
+        firstImg = Integer.valueOf(a.substring(firstImgIndex, a.length() - 1));
+        secondImg = Integer.valueOf(b.substring(secondImgIndex, b.length() - 1));
+        
+        resultReal = firstReal * secondReal + firstImg * secondImg * firstSymbol * secondSymbol * -1;
+        resultImg = firstReal * secondImg * secondSymbol + secondReal * firstImg * firstSymbol;
+        
+        result.append(resultReal);
+        result.append("+");
+        result.append(resultImg);
+        result.append("i");
+        
+        return result.toString();
+    }
+    
+}
