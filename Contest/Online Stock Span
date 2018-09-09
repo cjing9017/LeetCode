@@ -1,0 +1,56 @@
+//解法一（超时）
+class StockSpanner {
+    private List<Integer> list;
+    private int len;
+    
+    public StockSpanner() {
+        this.list = new ArrayList<>();
+        this.len = 0;
+    }
+    
+    public int next(int price) {
+        this.list.add(price);
+        this.len++;
+        int max = 0;
+        for (int i = this.len - 1; i >= 0; i--) {
+            if (list.get(i) > price) break;
+            max++;
+        }
+        return max;
+    }
+}
+
+//解法二
+class StockSpanner {
+    private List<Integer> listPrice;
+    private int len;
+    private List<Integer> listPriceSpan;
+    
+    public StockSpanner() {
+        this.listPrice = new ArrayList<>();
+        this.listPriceSpan = new ArrayList<>();
+        this.len = 0;
+    }
+    
+    public int next(int price) {
+        if ((Integer)price == null) {
+            throw new NullPointerException("is not a integer value");
+        }
+        int span = 1;
+        int index = this.len - 1;
+        while (index >= 0 && this.listPrice.get(index) <= price) {
+            span += this.listPriceSpan.get(index);
+            index -= this.listPriceSpan.get(index);
+        }
+        this.listPrice.add(price);
+        this.listPriceSpan.add(span);
+        this.len++;
+        return span;
+    }
+}
+
+/**
+ * Your StockSpanner object will be instantiated and called as such:
+ * StockSpanner obj = new StockSpanner();
+ * int param_1 = obj.next(price);
+ */
