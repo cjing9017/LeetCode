@@ -1,0 +1,13 @@
+class Solution {
+    public boolean detectCapitalUse(String word) {
+        String rightOne = word.toUpperCase();
+        String rightTwo = word.toLowerCase();
+        String rightThree = word.substring(0, 1).toUpperCase() +
+            word.substring(1).toLowerCase();
+        if (rightOne.equals(word) || rightTwo.equals(word) ||
+           rightThree.equals(word)) {
+            return true;
+        }
+        return false;
+    }
+}
