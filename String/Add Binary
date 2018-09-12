@@ -1,0 +1,18 @@
+class Solution {
+    public String addBinary(String a, String b) {
+        int carry = 0;
+        StringBuilder result = new StringBuilder();
+        int indexA = a.length() - 1;
+        int indexB = b.length() - 1;
+        while (indexA >= 0 || indexB >= 0) {
+            int xA = indexA >= 0 ? a.charAt(indexA--) - '0' : 0;
+            int xB = indexB >= 0 ? b.charAt(indexB--) - '0' : 0;
+            result.insert(0, (xA + xB + carry) % 2);
+            carry = (xA + xB + carry) / 2;
+        }
+        if (carry == 1) {
+            result.insert(0, "1");
+        }
+        return result.toString();
+    }
+}
