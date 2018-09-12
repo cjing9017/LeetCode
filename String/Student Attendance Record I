@@ -1,0 +1,21 @@
+class Solution {
+    public boolean checkRecord(String s) {
+        int cntA = 0;
+        int cntL = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'A') {
+                cntA++;
+            } else if (s.charAt(i) == 'L') {
+                if (cntL > 0 && s.charAt(i - 1) == 'L') {
+                    cntL++;
+                } else {
+                    cntL = 1;
+                }
+            }
+            if (cntL > 2 || cntA > 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
