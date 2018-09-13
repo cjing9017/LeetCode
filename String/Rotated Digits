@@ -1,0 +1,25 @@
+class Solution {
+    public int rotatedDigits(int N) {
+        int[] rotateNum = new int[] {0, 1, 5, -1, -1, 2, 9, -1, 8, 6};
+        int cnt = 0;
+        for (int i = 1; i <= N; i++) {
+            cnt = isGoodNum(rotateNum, i) ? cnt + 1 : cnt;
+        }
+        return cnt;
+    }
+
+    private boolean isGoodNum(int[] rotateNum, int x) {
+        int num = 0;
+        int order = 1;
+        int key = x;
+        while (x > 0) {
+            if (rotateNum[x % 10] == -1) {
+                return false;
+            }
+            num += order * rotateNum[x % 10];
+            order *= 10;
+            x /= 10;
+        }
+        return num == key ? false : true;
+    }
+}
