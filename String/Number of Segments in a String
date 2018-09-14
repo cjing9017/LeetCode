@@ -1,0 +1,5 @@
+class Solution {
+    public int countSegments(String s) {
+        return "".equals(s.trim()) ? 0 : s.trim().split("\u002c?\u0020+").length;
+    }
+}
