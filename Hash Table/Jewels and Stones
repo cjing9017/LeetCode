@@ -1,0 +1,19 @@
+class Solution {
+    public int numJewelsInStones(String J, String S) {
+        //创建哈希表用于表示珠宝
+        Set<Character> jewels = new HashSet<Character>();
+        //创建变量保存珠宝的数量
+        int cnt = 0;
+        //将J中每种类型的珠宝保存在jewels中
+        for (int i = 0; i < J.length(); i++) {
+            jewels.add(J.charAt(i));
+        }
+        //判断S中有多少珠宝
+        for (int i = 0; i < S.length(); i++) {
+            if (jewels.contains(S.charAt(i))) {
+                cnt++;
+            }
+        }
+        return cnt;
+    }
+}
