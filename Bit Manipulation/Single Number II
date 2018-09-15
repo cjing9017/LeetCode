@@ -1,0 +1,32 @@
+//解法一
+class Solution {
+    public int singleNumber(int[] nums) {
+        Map<Integer, Integer> count = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            count.put(nums[i], count.getOrDefault(nums[i], 0) + 1);
+        }
+        for (Integer key : count.keySet()) {
+            if (count.get(key) == 1) {
+                return key;
+            }
+        }
+        throw new IllegalArgumentException("No such solution");
+    }
+}
+
+//解法二
+class Solution {
+    public int singleNumber(int[] nums) {
+        double difSum = 0L;
+        double noDifSum = 0L;
+        Set<Integer> table = new HashSet<>();
+        for (int num : nums) {
+            if (!table.contains(num)) {
+                table.add(num);
+                difSum += num;
+            }
+            noDifSum += num;
+        }
+        return (int)((difSum * 3 - noDifSum) / 2);
+    }
+}
