@@ -1,0 +1,17 @@
+class Solution {
+    public int[] sortArrayByParity(int[] A) {
+        int st = 0;
+        int ed = A.length - 1;
+        while (st < ed) {
+            while (st < A.length && A[st] % 2 == 0) st++;
+            while (ed >= 0 && A[ed] % 2 == 1) ed--;
+            if (st >= ed) break;
+            A[st] = A[st] ^ A[ed];
+            A[ed] = A[st] ^ A[ed];
+            A[st] = A[st] ^ A[ed];
+            st++;
+            ed--;
+        }
+        return A;
+    }
+}
