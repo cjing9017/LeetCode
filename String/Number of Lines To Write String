@@ -1,0 +1,16 @@
+class Solution {
+    public int[] numberOfLines(int[] widths, String S) {
+        int lastLen = 0;
+        int row = 1;
+        for (int i = 0; i < S.length();) {
+            if (lastLen + widths[S.charAt(i) - 'a'] > 100) {
+                row += 1;
+                lastLen = 0;
+            } else {
+                lastLen += widths[S.charAt(i) - 'a'];
+                i++;
+            }
+        }
+        return new int[] {row, lastLen};
+    }
+}
