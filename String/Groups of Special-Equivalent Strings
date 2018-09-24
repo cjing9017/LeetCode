@@ -1,0 +1,39 @@
+class Solution {
+    public int numSpecialEquivGroups(String[] A) {
+        boolean[] visited = new boolean[A.length];
+        int cnt = 0;
+        for (int i = 0; i < A.length; i++) {
+            boolean group = false;
+            if (visited[i]) continue;
+            for (int j = i + 1; j < A.length; j++) {
+                if (!visited[j] && specialEquivalent(A[i], A[j])) {
+                    group = true;
+                    visited[j] = true;
+                }
+            }
+            cnt++;
+        }
+        return cnt;
+    }
+    
+    private boolean specialEquivalent (String S, String T) {
+        char[] S1 = new char[S.length() / 2 + 1];
+        char[] S2 = new char[S.length() / 2 + 1];
+        char[] T1 = new char[T.length() / 2 + 1];
+        char[] T2 = new char[T.length() / 2 + 1];
+        for (int i = 0; i < S.length(); i++) {
+            if (i % 2 == 0) S1[i / 2] = S.charAt(i);
+            else S2[i / 2]= S.charAt(i);
+        }
+        for (int i = 0; i < T.length(); i++) {
+            if (i % 2 == 0) T1[i / 2] = T.charAt(i);
+            else T2[i / 2]= T.charAt(i);
+        }
+        Arrays.sort(S1);
+        Arrays.sort(S2);
+        Arrays.sort(T1);
+        Arrays.sort(T2);
+        return Arrays.toString(S1).equals(Arrays.toString(T1)) &&
+               Arrays.toString(S2).equals(Arrays.toString(T2)) ? true : false;
+    }
+}
