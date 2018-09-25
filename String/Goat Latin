@@ -1,0 +1,22 @@
+class Solution {
+    public String toGoatLatin(String S) {
+        StringBuilder result = new StringBuilder();
+        StringBuilder end = new StringBuilder("a");
+        String ma = "ma";
+        String[] words = S.split("\u0020");
+        for (String word : words) {
+            if (isVowel(Character.toLowerCase(word.charAt(0)))) {
+                result.append(word + "ma");
+            } else {
+                result.append(word.substring(1) + word.charAt(0) + ma);
+            }
+            result.append(end.toString() + '\u0020');
+            end.append("a");
+        }
+        return result.toString().trim();
+    }
+    
+    private boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ? true : false;
+    }
+}
