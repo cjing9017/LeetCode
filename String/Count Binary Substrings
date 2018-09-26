@@ -1,0 +1,61 @@
+//解法一
+class Solution {
+    public int countBinarySubstrings(String s) {
+        int cnt = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int index = i;
+            String temp = "";
+            while (index < s.length() && s.charAt(index) == s.charAt(i)) {
+                index++;
+            }
+            if (index < s.length()) temp = s.substring(index, Math.min(index + index - i, s.length()));
+            if (temp.matches(String.format("0{%d}|1{%d}", index - i, index - i))) {
+                cnt += temp.length();
+                i += temp.length() - 1;
+            }
+        }
+        return cnt;
+    }
+}
+
+解法二
+class Solution {
+    public int countBinarySubstrings(String s) {
+        int result = 0;
+        List<Integer> group = new ArrayList<>();
+        int len = 1;
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                len++;
+            } else {
+                group.add(len);
+                len = 1;
+            }
+        }
+        group.add(len);
+        for (int i = 0; i < group.size() - 1; i++) {
+            result += Math.min(group.get(i), group.get(i + 1));
+        }
+        return result;
+    }
+}
+
+解法三
+class Solution {
+    public int countBinarySubstrings(String s) {
+        int pre = 0;
+        int cur = 1;
+        int result = 0;
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i) == s.charAt(i + 1)) {
+                cur++;
+            } else {
+                result += Math.min(pre, cur);
+                pre = cur;
+                cur = 1;
+            }
+        }
+        result += Math.min(pre, cur);
+        return result;
+    }
+}
