@@ -1,0 +1,22 @@
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        String[] words = paragraph.toLowerCase().split("\u0020");
+        int cnt = 0;
+        String result = null;
+        Map<String, Integer> table = new HashMap<>();
+        Set<String> wordsBanned = new HashSet<>();
+        for (String wordBanned : banned) {
+        	wordsBanned.add(wordBanned.toLowerCase());
+        }
+        for (String word : words) {
+            if (!Character.isLetter(word.charAt(word.length() - 1))) word = word.substring(0, word.length() - 1);
+        	if (wordsBanned.contains(word)) continue;
+        	table.put(word, table.getOrDefault(word, 0) + 1);
+        	if (table.get(word) > cnt) {
+        		cnt = table.get(word);
+        		result = word;
+        	}
+        }
+        return  result;
+    }
+}
