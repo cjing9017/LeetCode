@@ -1,0 +1,20 @@
+class Solution {
+    public int binaryGap(int N) {
+        List<Integer> binary = new ArrayList<>();
+        int dis = 0;
+        int preOneIndex = -1;
+        while (N > 0) {
+            binary.add(N & 0x01);
+            N >>= 1;
+        }
+        for (int i = 0; i < binary.size();) {
+            while (preOneIndex == -1 && binary.get(i) == 0) i++;
+            preOneIndex = preOneIndex == -1 ? i++ : preOneIndex;
+            while (i < binary.size() && binary.get(i) == 0) i++;
+            if (i >= binary.size()) break;
+            dis = Math.max(dis, i - preOneIndex);
+            preOneIndex = i++;
+        }
+        return dis;
+    }
+}
