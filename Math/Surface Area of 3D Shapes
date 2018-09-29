@@ -1,0 +1,22 @@
+class Solution {
+    public int surfaceArea(int[][] grid) {
+        int area = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
+                if (grid[i][j] == 0) continue;
+                area += 6 * grid[i][j] - 2 * (grid[i][j] - 1);
+                area -= reduceAround(grid, i, j);
+            }
+        }
+        return area;
+    }
+    
+    private int reduceAround(int[][] grid, int row, int col) {
+        int reduce = 0;
+        if (row - 1 >= 0) reduce += Math.min(grid[row][col], grid[row - 1][col]);
+        if (row + 1 < grid.length) reduce += Math.min(grid[row][col], grid[row + 1][col]);
+        if (col - 1 >= 0) reduce += Math.min(grid[row][col], grid[row][col - 1]);
+        if (col + 1 < grid[row].length) reduce += Math.min(grid[row][col], grid[row][col + 1]);
+        return reduce;
+    }
+}
