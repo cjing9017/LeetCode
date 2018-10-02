@@ -1,0 +1,11 @@
+class Solution {
+    public int hammingDistance(int x, int y) {
+        int dif = x ^ y;
+        int cnt = 0;
+        while (dif > 0) {
+            cnt = dif % 2 == 1 ? cnt + 1 : cnt;
+            dif /= 2;
+        }
+        return cnt;
+    }
+}
