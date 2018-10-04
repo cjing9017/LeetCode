@@ -1,0 +1,22 @@
+class Solution {
+    public List<String> subdomainVisits(String[] cpdomains) {
+        Map<String, Integer> table = new HashMap<>();
+        List<String> result = new ArrayList<>();
+        
+        for (String cpdomain : cpdomains) {
+            int times = Integer.valueOf(cpdomain.substring(0, cpdomain.indexOf('\u0020')));
+            String domains = cpdomain.substring(cpdomain.indexOf('\u0020') + 1);
+            int dotIndex = 0;
+            while (dotIndex != -1) {
+                String domain = dotIndex == 0 ? domains.substring(dotIndex) : domains.substring(++dotIndex);
+                table.put(domain, table.getOrDefault(domain, 0) + times);
+                dotIndex = domains.indexOf('.', dotIndex);
+            }
+        }
+        for (String domain : table.keySet()) {
+            result.add(table.get(domain) + " " + domain);
+        }
+        
+        return result;
+    }
+}

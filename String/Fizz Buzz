@@ -1,0 +1,15 @@
+class Solution {
+    public List<String> fizzBuzz(int n) {
+        List<String> result = new ArrayList<>();
+        String threeTimes = "Fizz";
+        String fiveTimes = "Buzz";
+        String threeAndFiveTimes = "FizzBuzz";
+        for (int i = 1; i <= n; i++) {
+            if (i % 3 == 0 && i % 5 == 0) result.add(threeAndFiveTimes);
+            else if (i % 3 == 0) result.add(threeTimes);
+            else if (i % 5 == 0) result.add(fiveTimes);
+            else result.add("" + i);
+        }
+        return result;
+    }
+}
