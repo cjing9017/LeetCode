@@ -1,0 +1,17 @@
+class Solution {
+    public String reverseOnlyLetters(String S) {
+        int st = 0;
+        int ed = S.length() - 1;
+        StringBuilder result = new StringBuilder(S);
+        while (st < ed) {
+            while (st < S.length() && !Character.isAlphabetic(S.charAt(st))) st++;
+            while (ed >= 0 && !Character.isAlphabetic(S.charAt(ed))) ed--;
+            if (st >= ed) break;
+            result.replace(st, st + 1, S.charAt(ed) + "");
+            result.replace(ed, ed + 1, S.charAt(st) + "");
+            st++;
+            ed--;
+        }
+        return result.toString();
+    }
+}

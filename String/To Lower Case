@@ -1,3 +1,4 @@
+//Java
 class Solution {
     public String toLowerCase(String str) {
         char[] result = new char[str.length()];
@@ -9,5 +10,12 @@ class Solution {
             result[i] = s;
         }
         return String.valueOf(result);
+    }
+}
+
+//Scala
+object Solution {
+    def toLowerCase(str: String): String = {
+        str.map(c => c.toLower)
     }
 }
