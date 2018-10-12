@@ -1,0 +1,26 @@
+class Solution {
+    public int calPoints(String[] ops) {
+        int result = 0;
+        LinkedList<Integer> list = new LinkedList<>();
+        for (String op : ops) {
+            int value;
+            if (Character.isDigit(op.charAt(0)) || op.charAt(0) == '-') {
+                value = Integer.valueOf(op);
+                list.addLast(value);
+                result += value;
+            } else if ("C".equals(op)) {
+                value = list.removeLast();
+                result -= value;
+            } else if ("D".equals(op)) {
+                value = list.getLast();
+                result += 2 * value;
+                list.addLast(2 * value);
+            } else if ("+".equals(op)) {
+                value = list.getLast() + list.get(list.size() - 2);
+                result += value;
+                list.addLast(value);
+            }
+        }
+        return result;
+    }
+}
