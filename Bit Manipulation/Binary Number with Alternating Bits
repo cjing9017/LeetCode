@@ -1,0 +1,13 @@
+class Solution {
+    public boolean hasAlternatingBits(int n) {
+        String str1 = "0101010101010101010101010101010";
+        String str2 = "1010101010101010101010101010101";
+        StringBuilder sb = new StringBuilder();
+        while (n > 0) {
+            sb.insert(0, n % 2);
+            n /= 2;
+        }
+        return sb.toString().equals(str1.substring(str1.length() - sb.length())) ||
+            sb.toString().equals(str2.substring(str2.length() - sb.length())) ? true : false;
+    }
+}
