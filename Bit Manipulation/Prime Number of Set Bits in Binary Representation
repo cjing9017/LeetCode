@@ -1,0 +1,35 @@
+class Solution {
+    public int countPrimeSetBits(int L, int R) {
+        Set<Integer> primes = new HashSet<>();
+        int result = 0;
+        
+        for (int i = L; i <= R; i++) {
+            int setBit = setBits(i);
+            if (primes.contains(setBit)) result++;
+            else if (isPrime(setBit)) {
+                primes.add(setBit);
+                result++;
+            }
+        }
+        
+        return result;
+    }
+    
+    private int setBits(int num) {
+        int cnt = 0;
+        while (num > 0) {
+            cnt = num % 2 == 1 ? cnt + 1 : cnt;
+            num /= 2;
+        }
+        return cnt;
+    }
+    
+    private boolean isPrime(int num) {
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return num == 1 ? false : true;
+    }
+}
