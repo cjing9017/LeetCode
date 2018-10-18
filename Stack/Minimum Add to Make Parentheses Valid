@@ -1,0 +1,12 @@
+class Solution {
+    public int minAddToMakeValid(String S) {
+        int result = 0;
+        Stack<Character> parentheses = new Stack<>();
+        for (int i = 0; i < S.length(); i++) {
+            if (S.charAt(i) == '(') parentheses.push(S.charAt(i));
+            else if (!parentheses.empty()) parentheses.pop();
+            else result++;
+        }
+        return result + parentheses.size();
+    }
+}
