@@ -1,0 +1,13 @@
+class Solution {
+    public int maxCount(int m, int n, int[][] ops) {
+        int row = m;
+        int col = n;
+        for (int[] op : ops) {
+            int a = op[0];
+            int b = op[1];
+            if (a < row) row = a;
+            if (b < col) col = b;
+        }
+        return row * col;
+    }
+}
