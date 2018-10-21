@@ -1,0 +1,19 @@
+class Solution {
+    public int minFlipsMonoIncr(String S) {
+        int base = 0;
+        int minFlip = Integer.MAX_VALUE;
+        for (int i = 0; i < S.length();) {
+            if (base > minFlip) break;
+            int index = i;
+            int cnt = 0;
+            while (index < S.length() && S.charAt(index) == '0') index++;
+            for (int j = index + 1; j < S.length(); j++) {
+                cnt = S.charAt(j) == '0' ? cnt + 1 : cnt;
+            }
+            minFlip = Math.min(minFlip, cnt + base);
+            base++;
+            i = index + 1;
+        }
+        return minFlip;
+    }
+}
