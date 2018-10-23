@@ -1,0 +1,19 @@
+//解法一（循环）
+class Solution {
+    public boolean isPowerOfThree(int n) {
+        if (n < 1) return false;
+        while (n > 0) {
+            if (n == 1) break;
+            if (n % 3 == 1 || n % 3 == 2) return false;
+            n /= 3;
+        }
+        return true;
+    }
+}
+
+//解法而（非循环）
+class Solution{
+	public boolean isPowerOfThree(int n) {
+		return n > 0 && Math.pow(3, 19) % n == 0;
+	}
+}
