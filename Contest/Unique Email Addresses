@@ -1,0 +1,21 @@
+class Solution {
+    public int numUniqueEmails(String[] emails) {
+        Set<String> table = new HashSet<>();
+        for (String email : emails) {
+            table.add(getEmail(email));
+        }
+        return table.size();
+    }
+    
+    private String getEmail(String email) {
+        StringBuilder sb = new StringBuilder();
+        int index = email.indexOf('@');
+        for (int i = 0; i < index; i++) {
+            if (email.charAt(i) == '.') continue;
+            if (email.charAt(i) == '+') break;
+            sb.append(email.charAt(i));
+        }
+        sb.append(email.substring(index));
+        return sb.toString();
+    }
+}

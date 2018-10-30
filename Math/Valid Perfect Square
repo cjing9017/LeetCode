@@ -1,0 +1,25 @@
+//解法一（二分法）
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        long left = 1;
+        long right = num;
+        while (left <= right) {
+            long mid = (left + right) / 2;
+            if (mid * mid== num) return true;
+            else if (mid * mid > num) right = mid - 1;
+            else left = mid + 1;
+        }
+        return false;
+    }
+}
+
+//解法二（牛顿法）
+class Solution {
+    public boolean isPerfectSquare(int num) {
+        long x = num / 2;
+        while (x * x > num) {
+            x = (x * x + num) / (2 * x);
+        }
+        return x * x == num || num == 1 ? true : false;
+    }
+}

@@ -1,0 +1,24 @@
+class Solution {
+    public int numSubarraysWithSum(int[] A, int S) {
+        if (A.length == 0) return 0;
+        int result = 0;
+        int[] sumOne = new int[A.length];
+        int st = 0;
+        int ed = 0;
+        sumOne[0] = A[0] == 1 ? 1 : 0;
+        for (int i = 1; i < A.length; i++) {
+            sumOne[i] = A[i] == 1 ? 1 + sumOne[i - 1] : sumOne[i - 1];
+        }
+        while (st < A.length) {
+            ed = st;
+            while (ed < A.length) {
+                int sum = st == 0 ? sumOne[ed] : sumOne[ed] - sumOne[st - 1];
+                if (sum > S) break;
+                result = sum == S ? result + 1 : result;
+                ed++;
+            }
+            st++;
+        }
+        return result;
+    }
+}

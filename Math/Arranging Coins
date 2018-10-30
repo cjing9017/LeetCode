@@ -1,0 +1,7 @@
+class Solution {
+    public int arrangeCoins(int n) {
+        long result = 0;
+        while ((1 + result) * result / 2 <= n) result++;
+        return (int)(result-1);
+    }
+}
