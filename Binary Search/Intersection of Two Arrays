@@ -1,0 +1,23 @@
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        Set<Integer> nums = new HashSet<>();
+        int index1 = 0;
+        int index2 = 0;
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        while (index1 < nums1.length && index2 < nums2.length) {
+            if (nums1[index1] == nums2[index2]) {
+                nums.add(nums1[index1]);
+                while (++index1 < nums1.length && nums1[index1] == nums1[index1 - 1]);
+                while (++index2 < nums2.length && nums2[index2] == nums2[index2 - 1]);
+            }
+            else if (nums1[index1] > nums2[index2]) index2++;
+            else index1++;
+        }
+        int index = 0;
+        int[] result = new int[nums.size()];
+        Iterator<Integer> it = nums.iterator();
+        while (it.hasNext()) result[index++] = it.next();
+        return result;
+    }
+}
