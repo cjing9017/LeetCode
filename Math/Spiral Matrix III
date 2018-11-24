@@ -1,0 +1,32 @@
+class Solution {
+    public int[][] spiralMatrixIII(int R, int C, int r0, int c0) {
+        int sumStep = R * C;
+        int[][] result = new int[sumStep][2];
+        int[][] dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int indexDir = 0;
+        int times = 1;
+        result[0][0] = r0;
+        result[0][1] = c0;
+        for (int i = 1; i < sumStep;) {
+            int cycle = 2;
+            while (cycle -- > 0) {
+                for (int j = 0; j < times; j++) {
+                    r0 += dir[indexDir][0];
+                    c0 += dir[indexDir][1];
+                    if (isValid(R, C, r0, c0)) {
+                        result[i][0] = r0;
+                        result[i][1] = c0;
+                        i++;
+                    }
+                }
+                indexDir = (indexDir + 1) % dir.length;
+            }
+            times++;
+        }
+        return result;
+    }
+    private boolean isValid(int R, int C, int r, int c) {
+        if (r < 0 || r >= R || c < 0 || c >= C) return false;
+        return true;
+    }
+}
