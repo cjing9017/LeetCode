@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (nums.length == 0) return result;
+        Arrays.sort(nums);
+        getSubsets(result, nums, new ArrayList<>(), new boolean[nums.length], 0);
+        return result;
+    }
+    private void getSubsets(List<List<Integer>> result, int[] nums, 
+                            List<Integer> list, boolean[] visited, int pos) {
+        result.add(new ArrayList<>(list));
+        for (int i = pos; i < nums.length; i++) {
+            if (visited[i] || (i > 0 && nums[i] == nums[i-1] && !visited[i-1])) continue;
+            visited[i] = true;
+            list.add(nums[i]);
+            getSubsets(result, nums, list, visited, i + 1);
+            visited[i] = false;
+            list.remove(list.size() - 1);
+        }
+    }
+}

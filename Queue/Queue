@@ -1,0 +1,23 @@
+class RecentCounter {
+    Deque<Integer> call;
+    public RecentCounter() {
+        call = new ArrayDeque<Integer>();
+    }
+    
+    public int ping(int t) {
+        if (call.isEmpty()) {
+            if (t == 0) return 0;
+            call.addLast(t);
+            return 1;
+        }
+        while (!call.isEmpty() && t - 3000 > call.getFirst()) call.removeFirst();
+        call.addLast(t);
+        return call.size();
+    }
+}
+
+/**
+ * Your RecentCounter object will be instantiated and called as such:
+ * RecentCounter obj = new RecentCounter();
+ * int param_1 = obj.ping(t);
+ */

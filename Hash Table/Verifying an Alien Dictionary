@@ -1,0 +1,27 @@
+class Solution {
+    public boolean isAlienSorted(String[] words, String order) {
+        Map<Character, Integer> table = new HashMap<>();
+        for (int i = 0; i < order.length(); i++) {
+            table.put(order.charAt(i), i);
+        }
+        for (int i = 1; i < words.length; i++) {
+            if (compareStr(words[i - 1], words[i], table) != -1) {
+                return false;
+            }    
+        }
+        return true;
+    }
+    private int compareStr(String str1, String str2, 
+                               Map<Character, Integer> table) {
+        int ind1 = 0;
+        int ind2 = 0;
+        while (ind1 < str1.length() && ind2 < str2.length()) {
+            if (table.get(str1.charAt(ind1)) < table.get(str2.charAt(ind2))) return -1;
+            if (table.get(str1.charAt(ind1)) > table.get(str2.charAt(ind2))) return 1;
+            ind1++;
+            ind2++;
+        }
+        if (str1.length() == str2.length()) return 0;
+        return str1.length() > str2.length() ? 1 : -1;
+    }
+}

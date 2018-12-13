@@ -1,0 +1,29 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> result = new ArrayList<>();
+        if (matrix.length == 0) return result;
+        boolean[][] visited = new boolean[matrix.length][matrix[0].length];
+        int cnt = matrix.length * matrix[0].length;
+        int[][] step = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+        int stepIndex = 0;
+        int row = 0;
+        int col = 0;
+        while (cnt-- > 0) {
+            result.add(matrix[row][col]);
+            visited[row][col] = true;
+            int tempRow = row + step[stepIndex][0];
+            int tempCol = col + step[stepIndex][1];
+            if (tempRow >= 0 && tempRow < matrix.length &&
+            	tempCol >= 0 && tempCol < matrix[0].length &&
+            	!visited[tempRow][tempCol]) {
+            	row = tempRow;
+            	col = tempCol;
+            } else {
+            	stepIndex = (stepIndex + 1) % step.length;
+            	row += step[stepIndex][0];
+            	col += step[stepIndex][1];
+            }
+        }
+        return result;
+    }
+}

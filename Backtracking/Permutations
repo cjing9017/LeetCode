@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+        getAllPermute(nums, result, new ArrayList<>(), new boolean[nums.length]);
+        return result;
+    }
+    private void getAllPermute(int[] nums, List<List<Integer>> result, List<Integer> temp, boolean[] visited) {
+        if (temp.size() == nums.length) {
+            result.add(new ArrayList<>(temp));
+            return;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i] || (i > 0 && nums[i] == nums[i-1] && !visited[i - 1])) continue;
+            temp.add(nums[i]);
+            visited[i] = true;
+            getAllPermute(nums, result, temp, visited);
+            visited[i] = false;
+            temp.remove(temp.size() - 1);
+        }
+    }
+}

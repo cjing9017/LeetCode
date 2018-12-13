@@ -1,0 +1,19 @@
+class Solution {
+    public String convert(String s, int numRows) {
+        if (numRows == 1) return s;
+        List<StringBuilder> rows = new ArrayList<>();
+        for (int i = 0; i < Math.min(numRows, s.length()); i++) {
+            rows.add(new StringBuilder());
+        }
+        boolean dir = false;
+        int row = 0;
+        for (char c : s.toCharArray()) {
+            rows.get(row).append(c);
+            if (row == 0 || row == rows.size() -1) dir = !dir;
+            row = dir ? row + 1 : row - 1;
+        }
+        StringBuilder result = new StringBuilder();
+        for (StringBuilder str : rows) result.append(str);
+        return result.toString();
+    }
+}

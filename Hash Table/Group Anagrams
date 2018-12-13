@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>> result = new ArrayList<>();
+        Map<String, Integer> strIndex = new HashMap<>();
+        int len = 0;
+        for (String str: strs) {
+            String tempStr = orderStr(str);
+            int index = strIndex.getOrDefault(tempStr, -1) == -1 ? len : strIndex.get(tempStr);
+            if (index == len) {
+                List<String> temp = new ArrayList<>();
+                temp.add(str);
+                result.add(new ArrayList<>(temp));
+            }
+            else result.get(index).add(str);
+            len = index == len ? len + 1 : len;
+            strIndex.put(tempStr, index);
+        }
+        return result;
+    }
+    private String orderStr(String s) {
+        StringBuilder result = new StringBuilder();
+        char[] str = s.toCharArray();
+        Arrays.sort(str);
+        for (char c: str) {
+            result.append(c);
+        }
+        return result.toString();
+    }
+}

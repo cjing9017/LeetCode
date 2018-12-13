@@ -1,0 +1,18 @@
+class Solution {
+    public int[] deckRevealedIncreasing(int[] deck) {
+        int[] result = new int[deck.length];
+        boolean[] visited = new boolean[deck.length];
+        Arrays.sort(deck);
+        int index = 0;
+        result[0] = deck[0];
+        visited[0] = true;
+        for (int i = 1; i < deck.length; i++) {
+            while (visited[index]) index = (index + 1) % result.length;
+            index = (index + 1) % result.length;
+            while (visited[index]) index = (index + 1) % result.length;
+            result[index] = deck[i];
+            visited[index] = true;
+        }
+        return result;
+    }
+}

@@ -1,0 +1,11 @@
+class Solution {
+    public int[] dailyTemperatures(int[] T) {
+        int[] result = new int[T.length];
+        for (int i = 0; i < T.length; i++) {
+            int j = i + 1;
+            while (j < T.length && T[j] <= T[i]) j++;
+            result[i] = j == T.length ? 0 : j - i;
+        }
+        return result;
+    }
+}
