@@ -1,0 +1,71 @@
+//Solution one
+class Solution {
+    
+    class Expression {
+        float minValue;
+        float maxValue;
+        String minValueStr;
+        String maxValueStr;
+        
+        public Expression() {
+            minValue = Float.MAX_VALUE;
+            maxValue = Float.MIN_VALUE;
+            minValueStr = "";
+            maxValueStr = "";
+        }
+    }
+    
+    public String optimalDivision(int[] nums) {
+        Expression[][] table = new Expression[nums.length][nums.length];
+        Expression result = optimalExpression(nums, 0, nums.length - 1, table);
+        return result.maxValueStr;
+    }
+    
+    private Expression optimalExpression(int[] nums, int st, int ed, Expression[][] table) {
+        if (table[st][ed] != null) {
+            return table[st][ed];
+        }
+        Expression eps = new Expression();
+        if (st == ed) {
+            eps.minValue = nums[st];
+            eps.maxValue = nums[st];
+            eps.minValueStr += nums[st];
+            eps.maxValueStr += nums[st];
+            table[st][ed] = eps;
+            return eps;
+        }
+        for (int i = st; i < ed; i++) {
+            Expression eps_left = optimalExpression(nums, st, i, table);
+            Expression eps_right = optimalExpression(nums, i + 1, ed, table);
+            if (eps_left.minValue / eps_right.maxValue < eps.minValue) {
+                eps.minValue = eps_left.minValue / eps_right.maxValue;
+                eps.minValueStr = eps_left.minValueStr + "/" + (i + 1 != ed ? "(" : "") + 
+                    eps_right.maxValueStr + (i + 1 != ed ? ")" : "");
+            }
+            if (eps_left.maxValue / eps_right.minValue > eps.maxValue) {
+                eps.maxValue = eps_left.maxValue / eps_right.minValue;
+                eps.maxValueStr = eps_left.maxValueStr + "/" + (i + 1 != ed ? "(" : "") +
+                    eps_right.minValueStr + (i + 1 != ed ? ")" : "");
+            }
+        }
+        table[st][ed] = eps;
+        return eps;
+    }
+}
+
+//Solution two
+class Solution {
+    public String optimalDivision(int[] nums) {
+        if (nums.length == 1) return "" + nums[0];
+        if (nums.length == 2) return nums[0] + "/" + nums[1];
+        StringBuilder result = new StringBuilder();
+        result.append(nums[0] + "/(" + nums[1]);
+        for (int i = 2; i < nums.length; i++) {
+            result.append("/" + nums[i]);
+        }
+        result.append(")");
+        return result.toString();
+    }
+}
+
+

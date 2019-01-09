@@ -1,0 +1,20 @@
+class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> frequence = new HashMap<>();
+        List<Integer> res = new ArrayList<>();
+        
+        for (int num: nums) {
+            frequence.put(num, frequence.getOrDefault(num, 0) + 1);
+        }
+        Queue<Integer> head = new PriorityQueue<>(
+            (num1, num2) -> frequence.get(num2) - frequence.get(num1));
+        for (int num: frequence.keySet()) {
+            head.add(num);
+        }
+        while (k-- > 0) {
+            res.add(head.poll());
+        }
+        
+        return res;
+    }
+}
