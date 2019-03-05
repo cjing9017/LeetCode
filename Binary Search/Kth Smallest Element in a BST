@@ -1,0 +1,56 @@
+//解法一
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Queue<Integer> heap = new PriorityQueue<>((a, b) -> a - b);
+        traverseTree(root, heap);
+        while (k-- > 1) {
+            heap.poll();
+        }
+        
+        return heap.peek();
+    }
+    
+    private void traverseTree(TreeNode root, Queue<Integer> heap) {
+        if (root == null) return;
+        heap.add(root.val);
+        traverseTree(root.left, heap);
+        traverseTree(root.right, heap);
+    }
+}
+
+//解法二
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        List<Integer> value = new ArrayList<>();
+        inorderTraverse(root, value);
+        return value.get(k - 1);
+    }
+    
+    private void inorderTraverse(TreeNode root, List<Integer> value) {
+        if (root == null) {
+            return;
+        }
+        inorderTraverse(root.left, value);
+        value.add(root.val);
+        inorderTraverse(root.right, value);
+    }
+}
+

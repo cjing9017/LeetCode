@@ -1,0 +1,15 @@
+class Solution {
+    public int repeatedNTimes(int[] A) {
+        Map<Integer, Integer> frequency = new HashMap<>();
+        int res = A[0];
+        for (int x: A) {
+            frequency.put(x, frequency.getOrDefault(x, 0) + 1);
+            if (frequency.get(x) == A.length / 2) {
+                res = x;
+                break;
+            }
+        }
+        
+        return res;
+    }
+}

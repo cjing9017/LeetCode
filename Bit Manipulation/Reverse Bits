@@ -1,0 +1,17 @@
+public class Solution {
+    // you need treat n as an unsigned value
+    public int reverseBits(int n) {
+        int low = 0;
+        int high = 31;
+        int res = 0;
+        while (low < high) {
+            int low_bit = (n >> low) & 0x01;
+            int high_bit = (n >> high) & 0x01;
+            res |= (high_bit << low);
+            res |= (low_bit << high);
+            low++;
+            high--;
+        }
+        return res;
+    }
+}

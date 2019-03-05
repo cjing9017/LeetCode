@@ -1,0 +1,64 @@
+//解法一
+class Solution {
+    public int rob(int[] nums) {
+        int[] table = new int[nums.length];
+        for (int i = 0; i < table.length; i++) {
+            table[i] = -1;
+        }
+        return robMax(nums, nums.length - 1, 0, table);
+    }
+    
+    private int robMax(int[] nums, int pos, int money, int[] table) {
+        if (pos < 0) {
+            return 0;
+        }
+        int money1 = 0;
+        int money2 = 0;
+        if (pos - 2 >= 0 && table[pos - 2] >= 0) {
+            money1 += table[pos - 2];
+        } else {
+            money1 += robMax(nums, pos - 2, money, table);
+        }
+        if (pos - 1 >= 0 && table[pos - 1] >= 0) {
+            money2 += table[pos - 1];
+        } else {
+            money2 += robMax(nums, pos - 1, money, table);
+        }
+        money += Math.max(money1 + nums[pos], money2);
+        table[pos] = money;
+        return money;
+    }
+}
+
+//解法二
+class Solution {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int[][] dp = new int[nums.length][2];
+        dp[0][1] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            dp[i][0] = Math.max(dp[i - 1][0], dp[i - 1][1]);
+            dp[i][1] = dp[i - 1][0] + nums[i];
+        }
+        return Math.max(dp[nums.length - 1][0], dp[nums.length - 1][1]);
+    }
+}
+
+//解法三
+class Solution {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int previousRob = nums[0];
+        int previousNoRob = 0;
+        for (int i = 1; i < nums.length; i++) {
+            int temp = previousNoRob;
+            previousNoRob = Math.max(previousRob, previousNoRob);
+            previousRob = temp + nums[i];
+        }
+        return Math.max(previousRob, previousNoRob);
+    }
+}

@@ -1,0 +1,33 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return false;
+        }
+        return search(matrix, 0, matrix.length - 1, target);
+    }
+    
+    private boolean search(int[][] matrix, int topRow, int bottomRow, int target) {
+        if (topRow == bottomRow) {
+            return binarySearch(matrix[topRow], target);
+        }
+        int mid = (topRow + bottomRow) / 2;
+        return search(matrix, topRow, mid, target) || 
+            search(matrix, mid + 1, bottomRow, target);
+    }
+    
+    private boolean binarySearch(int[] matrix, int target) {
+        int low = 0;
+        int high = matrix.length - 1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (matrix[mid] == target) {
+                return true;
+            } else if (matrix[mid] > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return false;
+    }
+}

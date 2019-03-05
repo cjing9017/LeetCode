@@ -1,0 +1,25 @@
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        Map<Character, Integer> anagram = new HashMap<>(26);
+        List<Integer> res = new ArrayList<>();
+        for (int i = 0; i < p.length(); i++) {
+            anagram.put(p.charAt(i), anagram.getOrDefault(p.charAt(i), 0) + 1);
+        }
+        for (int st = 0; st + p.length() <= s.length(); st++) {
+            Map<Character, Integer> temp = new HashMap<>(anagram);
+            int cnt = 0;
+            for (int i = st; i < st + p.length(); i++) {
+                temp.put(s.charAt(i), temp.getOrDefault(s.charAt(i), 0) - 1);
+                if (temp.get(s.charAt(i)) >= 0) {
+                    cnt++;
+                } else {
+                    break;
+                }
+            }
+            if (cnt == p.length())
+                res.add(st);
+        }
+        
+        return res;
+    }
+}
