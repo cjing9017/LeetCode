@@ -1,0 +1,43 @@
+//解法一
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        for (int i = 0; i < A.length; i++) {
+            A[i] = A[i] * A[i];
+        }
+        Arrays.sort(A);
+        return A;
+    }
+}
+
+//解法二
+class Solution {
+    public int[] sortedSquares(int[] A) {
+        int p1 = 0;
+        int p2 = 0;
+        while (p2 < A.length && A[p2] < 0) {
+            p2++;
+        }
+        p1 = p2 - 1;
+        int[] res = new int[A.length];
+        int p = 0;
+        while (p1 >= 0 && p2 < A.length) {
+            if (A[p1] * A[p1] < A[p2] * A[p2]) {
+                res[p++] = A[p1] * A[p1];
+                p1--;
+            } else {
+                res[p++] = A[p2] * A[p2];
+                p2++;
+            }
+        }
+        while (p1 >= 0) {
+            res[p++] = A[p1] * A[p1];
+            p1--;
+        }
+        while (p2 < A.length) {
+            res[p++] = A[p2] * A[p2];
+            p2++;
+        }
+        
+        return res;
+    }
+}
