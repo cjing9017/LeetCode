@@ -1,0 +1,25 @@
+class Solution {
+    public List<Integer> addToArrayForm(int[] A, int K) {
+        LinkedList<Integer> res = new LinkedList<>();
+        int carry = 0;
+        for (int i = A.length - 1; i >= 0; i--) {
+            int x = A[i] + carry + K % 10;
+            carry = x / 10;
+            x %= 10;
+            K /= 10;
+            res.addFirst(x);
+        }
+        while (K > 0) {
+            int x = carry + K % 10;
+            carry = x / 10;
+            x %= 10;
+            K /= 10;
+            res.addFirst(x);
+        }
+        if (carry > 0) {
+            res.addFirst(carry);
+        }
+        
+        return res;
+    }
+}

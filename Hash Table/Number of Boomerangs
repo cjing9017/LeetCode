@@ -1,0 +1,17 @@
+class Solution {
+    public int numberOfBoomerangs(int[][] points) {
+        int result = 0;
+        for (int[] i : points) {
+            Map<Integer, Integer> table = new HashMap<>();
+            for (int[] j : points) {
+                if (i == j) continue;
+                int dis = (i[0] - j[0]) * (i[0] - j[0]) + 
+                    (i[1] - j[1]) * (i[1] - j[1]);
+                int preDis = table.getOrDefault(dis, 0);
+                result += 2 * preDis;
+                table.put(dis, preDis + 1);
+            }
+        }
+        return result;
+    }
+}

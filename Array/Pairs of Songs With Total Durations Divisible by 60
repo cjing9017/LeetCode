@@ -1,0 +1,13 @@
+class Solution {
+    public int numPairsDivisibleBy60(int[] time) {
+        int res = 0;
+        int[] table = new int[60];
+        for (int t: time) {
+            int mod = t % 60;
+            res += table[(60 - mod) % 60];
+            table[mod]++;
+        }
+        
+        return res;
+    }
+}

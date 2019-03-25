@@ -1,0 +1,25 @@
+class Solution {
+    public int[] sumEvenAfterQueries(int[] A, int[][] queries) {
+        int[] res = new int[queries.length];
+        int even = 0;
+        int ind = 0;
+        for (int a: A) {
+            even = a % 2 == 0 ? even + a : even;
+        }
+        for (int[] query: queries) {
+            if (Math.abs(A[query[1]]) % 2 == 1 && Math.abs(query[0]) % 2 == 1) {
+                even += query[0] + A[query[1]];
+            } else if (A[query[1]] % 2 == 0) {
+                if (query[0] % 2 == 0) {
+                    even += query[0];
+                } else {
+                    even -= A[query[1]];
+                }
+            }
+            A[query[1]] += query[0];
+            res[ind++] = even;
+        }
+
+        return res;
+    }
+}

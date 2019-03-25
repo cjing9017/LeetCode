@@ -1,0 +1,28 @@
+class Solution {
+    public List<String> commonChars(String[] A) {
+        Map<Character, Integer> common = new HashMap<>();
+        frequency(common, A[0]);
+        for (int i = 1; i < A.length; i++) {
+            Map<Character, Integer> temp = new HashMap<>();
+            frequency(temp, A[i]);
+            for (char ch: common.keySet()) {
+                common.put(ch, Math.min(common.get(ch), temp.getOrDefault(ch, 0)));
+            }
+        }
+        List<String> res = new ArrayList<>();
+        for (char ch: common.keySet()) {
+            while (common.get(ch) > 0) {
+                res.add("" + ch);
+                common.put(ch, common.get(ch) - 1);
+            }
+        }
+        
+        return res;
+    }
+    
+    private void frequency(Map<Character, Integer> common, String s) {
+        for (int i = 0; i < s.length(); i++) {
+            common.put(s.charAt(i), common.getOrDefault(s.charAt(i), 0) + 1);
+        }
+    }
+}

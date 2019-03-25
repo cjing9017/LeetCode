@@ -1,0 +1,37 @@
+class Solution {
+    public int numRookCaptures(char[][] board) {
+        int res = 0;
+        int row_rook = 0;
+        int col_rook = 0;
+        label:
+        for (row_rook = 0; row_rook < board.length; row_rook++) {
+            for (col_rook = 0; col_rook < board[row_rook].length; col_rook++) {
+                if (board[row_rook][col_rook] == 'R') {
+                    break label;
+                }
+            }
+        }
+        res += pawns(board, row_rook, col_rook, 1, 0);
+        res += pawns(board, row_rook, col_rook, -1, 0);
+        res += pawns(board, row_rook, col_rook, 0, 1);
+        res += pawns(board, row_rook, col_rook, 0, -1);
+        
+        return res;
+    }
+    
+    private int pawns(char[][] board, int row, int col, int row_step, int col_step) {
+        int res = 0;
+        while (row < board.length && row >= 0 && col < board[row].length && col >= 0) {
+            if (board[row][col] == 'B') {
+                break;
+            } else if (board[row][col] == 'p') {
+                res += 1;
+                break;
+            }
+            row += row_step;
+            col += col_step;
+        }
+        
+        return res;
+    }
+}

@@ -1,0 +1,32 @@
+class Solution {
+    public boolean hasGroupsSizeX(int[] deck) {
+        if (deck.length <= 1) {
+            return false;
+        }
+        Map<Integer, Integer> times = new HashMap<>();
+        for (int d: deck) {
+            times.put(d, times.getOrDefault(d, 0) + 1);
+        }
+        int minTimes = Integer.MAX_VALUE;
+        for (int key: times.keySet()) {
+            minTimes = times.get(key) < minTimes ? times.get(key) : minTimes;
+        }
+        if (minTimes < 2) {
+            return false;
+        }
+        for (int x = 2; x <= minTimes; x++) {
+            boolean res = true;
+            for (int key: times.keySet()) {
+                if (times.get(key) % x != 0) {
+                    res = false;
+                    break;
+                }
+            }
+            if (res) {
+                return res;
+            }
+        }
+        
+        return false;
+    }
+}
