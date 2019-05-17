@@ -1,0 +1,17 @@
+class Solution {
+    public int bitwiseComplement(int N) {
+        if (N == 0) {
+            return 1;
+        }
+        int res = 0;
+        int base = 1;
+        while (N > 0) {
+            int bit = (N & 0x01) == 1 ? 0 : 1;
+            N >>= 1;
+            res += base * bit;
+            base *= 2;
+        }
+        
+        return res;
+    }
+}

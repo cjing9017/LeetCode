@@ -8,3 +8,40 @@ class Solution {
         return heap.peek();
     }
 }
+
+//解法二：快速排序
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return quickSort(nums, 0, nums.length - 1, nums.length - k); 
+    }
+    
+    public int quickSort(int[] nums, int st, int ed, int k) {
+        if (st > ed) {
+            return -1;
+        } 
+        int random = new Random().nextInt(ed - st + 1) + st;
+        swap(nums, ed, random);
+        int pivot = nums[ed];
+        int left = st;
+        for (int i = st; i < ed; i++) {
+            if (nums[i] <= pivot) {
+                swap(nums, left, i);
+                left++;
+            }
+        }
+        swap(nums, left, ed);
+        if (left == k) {
+            return nums[left];
+        } else if (left > k) {
+            return quickSort(nums, st, left - 1, k);
+        } else {
+            return quickSort(nums, left + 1, ed, k);
+        }
+    }
+    
+    public void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}

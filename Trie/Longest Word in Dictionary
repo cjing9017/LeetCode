@@ -1,0 +1,54 @@
+//解法一
+class Solution {
+    public String longestWord(String[] words) {
+        String res = null;
+        Arrays.sort(words, (str1, str2) -> str1.length() - str2.length());
+        HashSet<String> set = new HashSet<>();
+        for (String word: words) {
+            set.add(word);
+        }
+        for (int i = words.length - 1; i != -1; i--) {
+            while (i != -1 && !valid(words[i], set)) {
+                i--;
+            }
+            if (i == -1) {
+                break;
+            }
+            if (res == null) {
+                res = words[i];
+            } else if (res.length() > words[i].length()){
+                break;
+            } else {
+                res = res.compareTo(words[i]) >= 0 ? words[i] : res;
+            }
+        }
+        
+        return res;
+    }
+    private boolean valid(String word, HashSet<String> set) {
+        for (int i = 1; i <= word.length(); i++) {
+            if (!set.contains(word.substring(0, i))) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
+
+//解法二
+class Solution {
+    public String longestWord(String[] words) {
+        HashSet<String> set = new HashSet<>();
+        String res = "";
+        Arrays.sort(words);
+        for (String word: words) {
+            if (word.length() == 1 || set.contains(word.substring(0, word.length() - 1))) {
+                res = word.length() > res.length() ? word : res;
+                set.add(word);
+            }
+        }
+        
+        return res;
+    }
+}

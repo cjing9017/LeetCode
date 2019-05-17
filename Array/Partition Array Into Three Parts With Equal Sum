@@ -1,0 +1,23 @@
+class Solution {
+    public boolean canThreePartsEqualSum(int[] A) {
+        int average = 0;
+        for (int a: A) {
+            average += a;
+        }
+        if (average % 3 != 0) {
+            return false;
+        }
+        average /= 3;
+        int sum = 0;
+        int part = 0;
+        for (int i = 0; i < A.length; i++) {
+            sum += A[i];
+            if (sum == average) {
+                sum = 0;
+                part++;
+            }
+        }
+        
+        return part == 3 ? true : false;
+    }
+}

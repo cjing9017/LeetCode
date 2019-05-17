@@ -1,0 +1,17 @@
+class Solution {
+    public boolean validMountainArray(int[] A) {
+        if (A.length < 3) {
+            return false;
+        }
+        int st = 0;
+        int ed = A.length - 1;
+        while (st < A.length - 1 && A[st] < A[st + 1]) {
+            st++;
+        }
+        while (ed > 0 && A[ed] < A[ed - 1]) {
+            ed--;
+        }
+        
+        return st == ed && st != 0 && st != A.length - 1 ? true : false;
+    }
+}

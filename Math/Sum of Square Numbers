@@ -1,0 +1,43 @@
+//解法一（超时）
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        for (long a = 0; a * a <= c; a++) {
+            for (long b = 0; b * b <= c; b++) {
+                if (a * a + b * b == c) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+//解法二
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        for (long a = 0; a * a <= c; a++) {
+            long b = c - a * a;
+            if (find(0, b, b)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private boolean find(long low, long high, long target) {
+        if (low > high) {
+            return false;
+        }
+        while (low <= high) {
+            long mid = low + (high - low) / 2;
+            if (mid * mid == target) {
+                return true;
+            } else if (mid * mid > target) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return false;
+    }
+}

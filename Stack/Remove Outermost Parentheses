@@ -1,0 +1,23 @@
+class Solution {
+    public String removeOuterParentheses(String S) {
+        StringBuilder res = new StringBuilder();
+        LinkedList<Character> stack = new LinkedList<>();
+        for (int st = 0, ed = 0; ed != S.length();) {
+            st = ed;
+            stack.addLast(S.charAt(ed));
+            ed++;
+            while (stack.size() != 0 && ed != S.length()) {
+                char ch = S.charAt(ed);
+                if (ch == '(') {
+                    stack.addLast(ch);
+                } else {
+                    stack.pollLast();
+                }
+                ed++;
+            }
+            res.append(S.substring(st + 1, ed - 1));
+        }
+        
+        return res.toString();
+    }
+}
