@@ -1,0 +1,48 @@
+//解法一
+class Solution {
+	public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        if (k < 1 || t < 0) {
+            return false;
+        }
+        TreeSet<Long> set = new TreeSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            Long j = set.ceiling((long)nums[i] - t);
+            if (j != null && j <= ((long)nums[i] + t)) {
+                return true;
+            }
+            if (i >= k) {
+                set.remove((long)nums[i - k]);
+            }
+            set.add((long)nums[i]);
+        }
+        return false;
+    }
+}
+
+//解法二
+class Solution {
+    public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
+        if (k < 1 || t < 0) {
+            return false;
+        }
+        Map<Long, Long> map = new HashMap<>();
+        long div = (long)t + 1;
+        for (int i = 0; i < nums.length; i++) {
+            long x = (long)nums[i];
+            long key = x / div;
+            if (x < 0) {
+                key--;
+            }
+            if (map.containsKey(key) ||
+               (map.containsKey(key + 1) && map.get(key + 1) - x <= t) ||
+               (map.containsKey(key - 1) && x - map.get(key - 1) <= t)) {
+                return true;
+            }
+            if (i >= k) {
+                map.remove((long)nums[i - k] / div);
+            }
+            map.put(key, x);
+        }
+        return false;
+    }
+}

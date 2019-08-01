@@ -1,0 +1,52 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        char[] node1 = getNumbers(l1);
+        char[] node2 = getNumbers(l2);
+        char[] node = new char[Math.max(node1.length, node2.length) + 1];
+        int index1 = 0;
+        int index2 = 0;
+        ListNode head = null;
+        int carry = 0;
+        while (index1 < node1.length || index2 < node2.length) {
+            int x1 = index1 < node1.length ? node1[index1] - '0' : 0;
+            int x2 = index2 < node2.length ? node2[index2] - '0' : 0;
+            int x = (x1 + x2 + carry) % 10;
+            carry = (x1 + x2 + carry) / 10;
+            ListNode no = new ListNode(x);
+            no.next = head;
+            head = no;
+            index1++;
+            index2++;
+        }
+        if (carry == 1) {
+            ListNode no = new ListNode(1);
+            no.next = head;
+            head = no;
+        }
+        if (head != null && head.val == 0 && head.next == null) {
+            return head;
+        }
+        while (head != null && head.val == 0) {
+            head = head.next;
+        }
+        
+        return head;
+    }
+    
+    public char[] getNumbers(ListNode list) {
+        StringBuffer sb = new StringBuffer();
+        while (list != null) {
+            sb.append(list.val);
+            list = list.next;
+        }
+        return sb.reverse().toString().toCharArray();
+    }
+}

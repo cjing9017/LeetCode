@@ -1,0 +1,57 @@
+//解法一
+class Solution {
+    public String frequencySort(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char ch: s.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        ArrayList<HashMap.Entry<Character, Integer>> sortList = new ArrayList<>(map.entrySet());
+        sortList.sort((k1, k2) -> k2.getValue() - k1.getValue());
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Character, Integer> entry: sortList) {
+            int len = entry.getValue();
+            while (len-- > 0) {
+                sb.append(entry.getKey());
+            } 
+        }
+        return sb.toString();
+    }
+}
+
+//解法二
+class Solution {
+    public String frequencySort(String s) {
+        int[] count = new int[256];
+        for (char ch : s.toCharArray()) {
+            count[ch]++;
+        }
+
+        Map<Integer, List<Character>> map = new HashMap<>();
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] == 0) {
+                continue;
+            }
+            int cnt = count[i];
+            if (!map.containsKey(cnt)) {
+                map.put(cnt, new ArrayList<Character>());
+            }
+            map.get(cnt).add((char)i);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = s.length(); i > 0; i--) {
+            if (!map.containsKey(i)) {
+                continue;
+            }
+            List<Character> list = map.get(i);
+            for (Character ch : list) {
+                for (int len = 0; len < i; len++) {
+                    sb.append(ch);
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+}

@@ -1,0 +1,34 @@
+class Solution {
+    public int evalRPN(String[] tokens) {
+        LinkedList<String> stack = new LinkedList<>();
+        for (String s : tokens) {
+            if (Character.isDigit(s.charAt(0)) || 
+                (s.length() > 1 && Character.isDigit(s.charAt(1)))) {
+                stack.push(s);
+            } else {
+                int num2 = Integer.parseInt(stack.pop());
+                int num1 = Integer.parseInt(stack.pop());
+                int result = 0;
+                switch(s.charAt(0)) {
+                    case '+':
+                        result = num1 + num2;
+                        break;
+                    case '-':
+                        result = num1 - num2;
+                        break;
+                    case '/':
+                        result = num1 / num2;
+                        break;
+                    case '*':
+                        result = num1 * num2;
+                        break;
+                    default:
+                        break;
+                }
+                stack.push(String.valueOf(result));
+            }
+        }
+        
+        return Integer.parseInt(stack.pop());
+    }
+}

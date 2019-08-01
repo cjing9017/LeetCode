@@ -1,0 +1,26 @@
+class Solution {
+    public String simplifyPath(String path) {
+        if ("".equals(path)) {
+            return path;
+        }
+        String[] paths = path.split("/");
+        LinkedList<String> stack = new LinkedList<>();
+        for (String p : paths) {
+            if ("".equals(p) || ".".equals(p)) {
+                continue;
+            } else if ("..".equals(p)) {
+                if (!stack.isEmpty()) {
+                    stack.pop();
+                }
+            } else {
+                stack.push(p);
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        while (!stack.isEmpty()) {
+            result.insert(0, "/" + stack.pop());
+        }
+
+        return "".equals(result.toString()) ? "/" : result.toString();
+    }
+}

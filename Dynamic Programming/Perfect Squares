@@ -1,0 +1,28 @@
+class Solution {
+    public int numSquares(int n) {
+        LinkedList<List<Integer>> queue = new LinkedList<>();
+        boolean[] visited = new boolean[n + 1];
+        visited[n] = true;
+        queue.addLast(Arrays.asList(n, 0));
+        while (!queue.isEmpty()) {
+            List<Integer> list = queue.poll();
+            int num = list.get(0);
+            int step = list.get(1);
+            for (int i = 1; ; i++) {
+                int ret = num - i * i;
+                if (ret < 0) {
+                    break;
+                }
+                if (ret == 0) {
+                    return step + 1;
+                }
+                if (!visited[ret]) {
+                    queue.addLast(Arrays.asList(ret, step + 1));
+                    visited[ret] = true;
+                }
+            }
+        }
+
+        throw new RuntimeException("no solution");
+    }
+}

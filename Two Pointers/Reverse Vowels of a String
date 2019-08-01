@@ -19,3 +19,39 @@ class Solution {
         return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ? true : false;
     }
 }
+
+//解法二
+class Solution {
+    private static final char[] charMap = new char[256];
+    static {
+        charMap['a'] = charMap['A'] = 1;
+        charMap['e'] = charMap['E'] = 1;
+        charMap['i'] = charMap['I'] = 1;
+        charMap['o'] = charMap['O'] = 1;
+        charMap['u'] = charMap['U'] = 1;
+    }
+    public String reverseVowels(String s) {
+        char[] sChar = s.toCharArray();
+        int left = 0;
+        int right = sChar.length - 1;
+        while (left < right) {
+            char chLeft = charMap[sChar[left]];
+            char chRight = charMap[sChar[right]];
+            if (chLeft != 0 && chRight != 0) {
+                char temp = sChar[left];
+                sChar[left] = sChar[right];
+                sChar[right] = temp;
+                left++;
+                right--;
+            } else {
+                if (chLeft == 0) {
+                    left++;
+                }
+                if (chRight == 0) {
+                    right--;
+                }
+            }
+        }
+        return new String(sChar);
+    }
+}

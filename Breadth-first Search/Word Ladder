@@ -1,0 +1,39 @@
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        LinkedList<List<String>> queue = new LinkedList<>();
+        Set<String> set = new HashSet<>();
+        queue.addLast(Arrays.asList(beginWord, "1"));
+        while (!queue.isEmpty()) {
+            List<String> list = queue.poll();
+            String word = list.get(0);
+            int step = Integer.parseInt(list.get(1));
+            if (word.equals(endWord)) {
+                return step;
+            }
+            for (String s : wordList) {
+                if (!set.contains(s)) {
+                    if (transform(word, s)) {
+                        queue.addLast(Arrays.asList(s, step + 1 + ""));
+                        set.add(s);
+                    }
+                }
+            }
+        }
+        
+        return 0;
+    }
+    
+    public boolean transform(String s1, String s2) {
+        int cnt = 0;
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.charAt(i) != s2.charAt(i)) {
+                cnt++;
+            }
+            if (cnt > 1) {
+                return false;
+            }
+        }
+        
+        return cnt == 1 ? true : false;
+    }
+}
