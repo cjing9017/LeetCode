@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        if (n <= 0 || k <=0 || k > n) {
+            return result;
+        }
+        
+        find(result, new LinkedList<Integer>(), n, k, 1);
+        
+        return result;
+        
+    }
+    
+    private void find(List<List<Integer>> result, LinkedList<Integer> temp, int n, int k, int v) {
+        if (temp.size() == k) {
+            result.add(new LinkedList<Integer>(temp));
+            return;
+        }
+        
+        for (int i = v; i <= n-(k-temp.size())+1; i++) {
+            temp.push(i);
+            find(result, temp, n, k, i + 1);
+            temp.pop();
+        }
+    }
+}

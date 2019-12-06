@@ -1,0 +1,35 @@
+class Solution {
+    private int res = 0;
+    
+    public int totalNQueens(int n) {
+        if (n <= 0) {
+            return 0;
+        }
+        
+        boolean[] col = new boolean[n];
+        boolean[] diagT = new boolean[2*n-1];
+        boolean[] diagF = new boolean[2*n-1];
+        find(col, diagT, diagF, 0, n);
+        
+        return res;
+    }
+    
+    private void find(boolean[] col, boolean[] diagT, boolean[] diagF, int row, int n) {
+        if (row == n) {
+            res++;
+            return;
+        }
+        
+        for (int i = 0; i < n; i++) {
+            if (!col[i] && !diagT[row-i+n-1] && !diagF[row+i]) {
+                col[i] = true;
+                diagT[row-i+n-1] = true;
+                diagF[row+i] = true;
+                find(col, diagT, diagF, row + 1, n);
+                col[i] = false;
+                diagT[row-i+n-1] = false;
+                diagF[row+i] = false;
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+class Solution {
+    public int integerBreak(int n) {
+        int[] memo = new int[n + 1];
+        
+        return find(n, memo);
+    }
+    
+    private int find(int n, int[] memo) {
+        int max = 0;
+        for (int i = 1; i < n; i++) {
+            max = threeMax(max, i * (memo[n-i] == 0 ? find(n-i, memo) : memo[n-i]), i * (n - i));
+        }
+        memo[n] = max;
+        
+        return max;
+    }
+    
+    private int threeMax(int a, int b, int c) {
+        int max = Math.max(a, b);
+        
+        return Math.max(max, c);
+    }
+}

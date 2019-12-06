@@ -1,0 +1,51 @@
+class Solution {
+    private HashMap<Integer, HashSet<Integer>> row = new HashMap<>();
+    private HashMap<Integer, HashSet<Integer>> col = new HashMap<>();
+    private HashMap<Integer, HashSet<Integer>> cell = new HashMap<>();
+    
+    public void solveSudoku(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            row.put(i, new HashSet<Integer>());
+            col.put(i, new HashSet<Integer>());
+            cell.put(i, new HashSet<Integer>());
+        }
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] != '.') {
+                    row.get(i).add(board[i][j] - '0');
+                    col.get(j).add(board[i][j] - '0');
+                    cell.get(i/3*3+j/3).add(board[i][j] - '0');
+                }
+            }
+        }
+        
+        fill(board);
+    }
+    
+    private boolean fill(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') {
+                    for (int k = 1; k <= 9; k++) {
+                        if (!row.get(i).contains(k) && !col.get(j).contains(k) && !cell.get(i/3*3+j/3).contains(k)) {
+                            board[i][j] = (char)(k + '0');
+                            row.get(i).add(k);
+                            col.get(j).add(k);
+                            cell.get(i/3*3+j/3).add(k);
+                            if (fill(board)) {
+                                return true;
+                            } else {
+                                board[i][j] = '.';
+                                row.get(i).remove(k);
+                                col.get(j).remove(k);
+                                cell.get(i/3*3+j/3).remove(k);
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}

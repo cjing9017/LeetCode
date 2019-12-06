@@ -1,0 +1,54 @@
+class Solution {
+    
+    private static final String[] words = {
+        "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+        "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"
+    };
+    
+    private static final String[] tens = {
+        "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
+    };
+    
+    
+    public String numberToWords(int num) {
+        if (num < 0) {
+            return "";
+        }
+        if (num == 0) {
+            return "Zero";
+        }
+        int[] div = {1000000000, 1000000, 1000};
+        String[] money = {"Billion", "Million", "Thousand"};
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < div.length; i++) {
+            int m = num / div[i];
+            if (m == 0) {
+                continue;
+            }
+            build(result, m, money[i]);
+            num %= div[i];
+        }
+        build(result, num, "");
+
+        return result.toString().trim();
+    }
+    
+    public void build(StringBuilder result, int num, String word) {
+        int hundred = num / 100;
+        if (hundred > 0) {
+            result.append(words[hundred] + " Hundred ");
+        }
+        int remaind = num % 100;
+        if (remaind < 20 && remaind > 0) {
+            result.append(words[remaind] + " ");
+        } else if (remaind >= 20) {
+            int ten = remaind / 10;
+            result.append(tens[ten] + " ");
+            if (remaind % 10 > 0) {
+                result.append(words[remaind % 10] + " ");
+            }
+        }
+        
+        result.append(word + " ");
+    }
+}

@@ -1,0 +1,31 @@
+//解法一
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        List<Integer> minPath = triangle.get(n - 1);
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                int min =  Math.min(minPath.get(j) , minPath.get(j + 1)) + triangle.get(i).get(j);
+                minPath.set(j, min);
+            }
+        }
+        
+        return minPath.get(0);
+    }
+}
+
+//解法二
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int n = triangle.size();
+        int[] minPath = new int[n + 1];
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = 0; j <= i; j++) {
+                minPath[j] = Math.min(minPath[j], minPath[j+1]) + triangle.get(i).get(j);
+            }
+        }
+        
+        
+        return minPath[0];
+    }
+}

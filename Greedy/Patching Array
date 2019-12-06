@@ -1,0 +1,11 @@
+class Solution {
+    public int minPatches(int[] nums, int n) {
+       int count = 0;
+       int ind = 0;
+       for (long miss = 1; miss <= n; count++) {
+           miss += (ind < nums.length && nums[ind] <= miss) ? nums[ind++] : miss;
+       }
+
+       return count - ind;
+    }
+}

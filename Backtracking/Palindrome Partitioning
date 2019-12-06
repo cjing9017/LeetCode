@@ -1,0 +1,39 @@
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> result = new ArrayList<>();
+        
+        find(s, result, new ArrayList<String>());
+        
+        return result;
+    }
+    
+    public void find(String s, List<List<String>> result, List<String> temp) {
+        if ("".equals(s)) {
+            result.add(new ArrayList<String>(temp));
+            return;
+        }
+        
+        for (int i = 1; i <= s.length(); i++) {
+            String str = s.substring(0, i);
+            if (palindrome(str)) {
+                temp.add(str);
+                find(s.substring(i), result, temp);
+                temp.remove(temp.size() - 1);
+            }
+        }
+    }
+    
+    public boolean palindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+        
+        return true;
+    }
+}

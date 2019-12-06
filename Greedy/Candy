@@ -1,0 +1,35 @@
+class Solution {
+    public int candy(int[] ratings) {
+        if (ratings == null || ratings.length == 0) {
+            return 0;
+        }
+        
+        int res = 1;
+        int pre = 1;
+        int countDown = 0;
+        for (int i = 1; i != ratings.length; i++) {
+            if (ratings[i] >= ratings[i - 1]) {
+                if (countDown > 0) {
+                    res += countDown * (countDown + 1) / 2;
+                    if (countDown >= pre) {
+                        res += countDown - pre + 1;
+                    }
+                    pre = 1;
+                    countDown = 0;
+                }
+                pre = ratings[i] == ratings[i - 1] ? 1 : pre + 1;
+                res += pre;
+            } else {
+                countDown++;
+            }
+        }
+        if (countDown > 0) {
+            res += countDown * (countDown + 1) / 2;
+            if (countDown >= pre) {
+                res += countDown - pre + 1;
+            }
+        }
+        
+        return res;
+    }
+}

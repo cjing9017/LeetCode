@@ -1,0 +1,47 @@
+class Solution {
+    
+    class Bucket {
+        boolean used = false;
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+    }
+    
+    public int maximumGap(int[] nums) {
+        if (nums == null || nums.length < 2) {
+            return 0;
+        }
+        
+        int maxNum = nums[0];
+        int minNum = nums[0];
+        for (int num : nums) {
+            maxNum = Math.max(maxNum, num);
+            minNum = Math.min(minNum, num);
+        }
+        
+        int bucketSize = Math.max(1, (maxNum - minNum) / (nums.length - 1));
+        int bucketNum = (maxNum - minNum) / bucketSize + 1;
+        
+        Bucket[] bucket = new Bucket[bucketNum];
+        for (int i = 0; i != bucket.length; i++) {
+            bucket[i] = new Bucket();
+        }
+        
+        for (int num : nums) {
+            int bucketIndex = (num - minNum) / bucketSize;
+            bucket[bucketIndex].used = true;
+            bucket[bucketIndex].min = Math.min(num, bucket[bucketIndex].min);
+            bucket[bucketIndex].max = Math.max(num, bucket[bucketIndex].max);
+        }
+        
+        int maxDif = 0;
+        int preMax = bucket[0].max;
+        for (int i = 1; i != bucket.length; i++) {
+            if (bucket[i].used) {
+                maxDif = Math.max(maxDif, bucket[i].min - preMax);
+                preMax = bucket[i].max;
+            }
+        }
+        
+        return maxDif;
+    }
+}

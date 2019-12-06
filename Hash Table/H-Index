@@ -1,0 +1,24 @@
+class Solution {
+    public int hIndex(int[] citations) {
+        int len = citations.length;
+        int[] count = new int[len + 1];
+        for (int cite : citations) {
+            if (cite >= len) {
+                count[len]++;
+            } else {
+                count[cite]++;
+            }
+        }
+        
+        int max = 0;
+        int sum = 0;
+        for (int i = len; i >= 0; i--) {
+            sum += count[i];
+            if (sum >= i) {
+                max = Math.max(max, i);
+            }
+        }
+        
+        return max;
+    }
+}
